@@ -1,0 +1,367 @@
+\documentclass[a4paper,11pt]{article}
+
+%Headers
+\usepackage[dvips]{graphicx}    %package that does pdfs
+\usepackage{color}              %this needs to be here also
+\usepackage{ulem}
+\usepackage{amsmath}
+\usepackage{pgfplots}
+\usepackage{adjustbox}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{fancyvrb}
+\usepackage{upquote}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+             \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+\newcommand{\mybf}[1]{\boldsymbol{#1}}
+\newcommand{\norm}[1]{\lvert\lvert #1 \rvert\rvert}
+\newcommand{\autour}[1]{\tikz[baseline=(X.base)]\node [draw=black,fill=white!40,semithick,rectangle,inner sep=2pt, rounded corners=3pt] (X) {#1};}
+\newcommand{\?}{\stackrel{?}{=}}
+
+\title{%
+	Problem Set 9\\
+	\large MIT CW Linear Algebra (18.06)
+}
+\author{Aviel Livay}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\subsection*{Section 6.5, question 25}
+We are told that $C=\sqrt{D}L^T$. Also $S=L\sqrt{D}\sqrt{D}L^T=(\sqrt{D}{L^T})^T\sqrt{D}L^T=C^TC$\\
+So
+\begin{align*}
+S=C^TC=
+\begin{bmatrix}
+3 & 0 \\
+1 & 2 \\
+\end{bmatrix}
+\begin{bmatrix}
+3 & 1 \\
+0 & 2 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+9 & 3 \\
+3 & 5 \\
+\end{bmatrix}
+\end{align*}
+if 
+\begin{align*}
+S = 
+\begin{bmatrix}
+4 & 8 \\
+8 & 25 \\
+\end{bmatrix}
+\end{align*}
+to diagonalize it we subtract 2 times the first row from the second row so we get -  
+\begin{align*}
+L =
+\begin{bmatrix}
+1 & 0 \\
+2 & 1 \\
+\end{bmatrix}
+\end{align*}
+and we are left with this upper triangular matrix:
+\begin{align*} 
+\begin{bmatrix}
+4 & 8 \\
+0 & 9 \\
+\end{bmatrix}
+\end{align*}
+We see $4$ and $9$ on the diagonal so we want to factor them out and we get
+\begin{align*} 
+D = 
+\begin{bmatrix}
+4 & 0 \\
+0 & 9 \\
+\end{bmatrix}
+\end{align*}
+and of course 
+\begin{align*} 
+L^T = 
+\begin{bmatrix}
+1 & 2 \\
+0 & 1 \\
+\end{bmatrix}
+\end{align*}
+So 
+\begin{align*} 
+C = \sqrt{D}L^T =
+\begin{bmatrix}
+2 & 0 \\
+0 & 3 \\
+\end{bmatrix}
+*
+\begin{bmatrix}
+1 & 2 \\
+0 & 1 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+2 & 4 \\
+0 & 3 \\
+\end{bmatrix}
+\end{align*}
+And indeed 
+\begin{align*} 
+\begin{bmatrix}
+2 & 0 \\
+4 & 3 \\
+\end{bmatrix}
+*
+\begin{bmatrix}
+2 & 4 \\
+0 & 3 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+4 & 8 \\
+8 & 25 \\
+\end{bmatrix}
+\end{align*}
+And also of course if we run C= chol(S) we get the same result.
+\subsection*{Section 6.5, question 26}
+\begin{enumerate}
+\item
+We start with
+\begin{align*}
+S = 
+\begin{bmatrix}
+9 & 0 & 0 \\
+0 & 1 & 2 \\
+0 & 2 & 8 \\
+\end{bmatrix}
+\end{align*}
+We find the pivots by subtracting twice the second row from the first row so the L matrix in this case is"
+\begin{align*}
+L = 
+\begin{bmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 2 & 1 \\
+\end{bmatrix}
+\end{align*}
+and we get the upper triangular:
+\begin{align*} 
+\begin{bmatrix}
+9 & 0 & 0 \\
+0 & 1 & 2 \\
+0 & 0 & 4 \\
+\end{bmatrix}
+\end{align*}
+We can factor out the diagonals such as to be left with only 1's there using 
+\begin{align*}
+D = 
+\begin{bmatrix}
+9 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 4 \\
+\end{bmatrix}
+\end{align*}
+and then 
+\begin{align*}
+C = \sqrt{D}L^T =
+\begin{bmatrix}
+3 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 2 \\
+\end{bmatrix}
+\begin{bmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 2 & 1 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+3 & 0 & 0 \\
+0 & 1 & 2 \\
+0 & 0 & 2 \\
+\end{bmatrix}
+\end{align*}
+\item
+We start with
+\begin{align*}
+S = 
+\begin{bmatrix}
+1 & 1 & 1 \\
+1 & 2 & 2 \\
+1 & 2 & 7 \\
+\end{bmatrix}
+\end{align*}
+We find the pivots by 
+\begin{enumerate}
+\item subtracting the first row from the second row 
+\item subtracting the first row from the third row
+\item subtracting the second row from the third row
+\end{enumerate}
+so the L matrix in this case is"
+\begin{align*}
+L = 
+\begin{bmatrix}
+1 & 0 & 0 \\
+1 & 1 & 0 \\
+1 & 1 & 1 \\
+\end{bmatrix}
+\end{align*}
+and we get the upper triangular:
+\begin{align*} 
+\begin{bmatrix}
+1 & 1 & 1 \\
+0 & 1 & 1 \\
+0 & 0 & 5 \\
+\end{bmatrix}
+\end{align*}
+We can factor out the diagonals such as to be left with only 1's there using 
+\begin{align*}
+D = 
+\begin{bmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 5 \\
+\end{bmatrix}
+\end{align*}
+and then 
+\begin{align*}
+C = \sqrt{D}L^T =
+\begin{bmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & \sqrt{5} \\
+\end{bmatrix}
+\begin{bmatrix}
+1 & 1 & 1 \\
+0 & 1 & 1 \\
+0 & 0 & 1 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 1 & 1 \\
+0 & 1 & 1 \\
+0 & 0 & \sqrt{5} \\
+\end{bmatrix}
+\end{align*}
+\end{enumerate}
+\subsection*{Section 6.5, question 27}
+\begin{align*}
+\frac{1}{a^2}(ax+by)^2+\frac{ac-b^2}{a}y^2
+\end{align*}
+For a=2, b=4 and c=10 we are talking about 
+\begin{align*}
+\begin{bmatrix}
+x & y \\
+\end{bmatrix}
+\begin{bmatrix}
+2 & 4 \\
+4 & 10 \\
+\end{bmatrix}
+\begin{bmatrix}
+x \\
+y \\
+\end{bmatrix}
+=
+\frac{1}{4}(4x+16y)^2+2y^2
+\end{align*}
+\subsection*{Section 6.5, question 29}
+\begin{enumerate}
+\item
+For the equation $F_1(x,y)=\frac{1}{4}x^4+x^2y+y^2$ we shall replace $z=x^2$ and get $\frac{1}{4}z^4+zy+y^2$ for which we can establish the following matrix:
+\begin{align*}
+S = 
+\begin{bmatrix}
+\frac{1}{2} & \frac{1}{2} \\
+\frac{1}{2} & 2 \\
+\end{bmatrix}
+=
+\frac{1}{2}(z+y)^2+\frac{3}{2}y^2
+\end{align*}
+The most possible minimal point is when both squares are empty and that happens when $z+y=0$ as well as $y=0$ which means both $z$ and $y$ are 0 and which also means $(x,y)=(0,0)$.
+\item
+For the equation $F_2(x,y)=x^3+xy-x$ the second derivative matrix looks as follows:
+\begin{align*}
+\begin{bmatrix}
+6x+1 & 1 \\
+1 & 0 \\
+\end{bmatrix}
+\end{align*}
+The test for positive definite is that both the determinant of the upper left 1x1 matrix is positive and the 2x2 matrix determinant is positive which means
+\begin{align*}
+6x+1>0
+6x+1-1>0
+\end{align*}
+which is true only if $x>0$.
+So at $x=0$ the matrix is 
+\begin{align*}
+\begin{bmatrix}
+1 & 1 \\
+1 & 0 \\
+\end{bmatrix}
+\end{align*}
+which translates into $(x+\frac{1}{2}y)^2-\frac{1}{4}y^2$
+So we get a saddle at point $(x,y)=(0,0)$.
+So only when $x>0$ and $y>0$ do we see this function going above 0.
+\end{enumerate}
+\subsection*{Section 6.5, question 32}
+\begin{enumerate}[label=\alph*]
+\item $AB$ can take two positive definite matrices and send them to a non positive definite matrix. Here's the example:
+\begin{align*}
+\begin{bmatrix}
+1 & 1 \\
+1 & 2 \\
+\end{bmatrix} 
+\begin{bmatrix}
+1 & -2 \\
+-2 & 6 \\
+\end{bmatrix}=
+-1 & 4 \\
+-4 & 10 \\
+\end{align*}
+\item orthogonal matrices stay in the group.
+Suppose we have $A$ and $B$ and they are orthogonal matrices. That means that $A{A^T}=I$ and $B{B^T}=I$. \\
+We want to see what happens when we multiply... - $(AB)*(AB)^T= A{B}{B^T}{A^T} = A{I}A^T=A{A^T}=I$. Also $(AB)^{-1}((AB)^{-1})^T = (AB)^{-1}((AB)^T)^{-1}$. \\
+As for $Q^{-1}$ We can check if it too is orthogonal and indeed it is because $Q^{-1}*(Q^{-1})^T=Q^{-1}(Q^{T})^{-1}=(Q{Q^{T}})^{-1}=I^{-1}=I$
+\item exponentials stay within the group because $e^{tA}{e^{tB}}=e^{t(A+B)}$ which is inside the family. Same for the ${e^{tA}}^{-1}=e^{t(-A)}$.
+\item using the same example that I used for positive definite matrices, one can see that matrices P with positive eigenvalues can go out of the group when undergoing mutual multiplication.
+\item Matrices D with determinant 1 stay in the group because $\text{det}(D_1*D_2)=\text{det}(D_1)\text{det}(D_2)$. Similar argument for reciprocal.
+\item Orthonormal matrices, meaning all columns are orthogonal but not only that but also their size equals 1.
+\item subgroup of Matrices D: Matrices with determinant 1 and real eigenvalues.
+\end{enumerate}
+\subsection*{Section 6.5, question 33}
+If we follow the instructions (which Ididn't...) then we have to start with
+\begin{align*}
+ST\mybf{x}=\lambda\mybf{x}
+\end{align*}
+If we do a dot product with $T\mybf{x}$ then we get - 
+\begin{align*}
+(ST\mybf{x})^T(T\mybf{x})&= (\lambda\mybf{x})^T(T\mybf{x}) \\
+(T\mybf{x})^T{S}(T\mybf{x})&= \lambda\mybf{x}^T{T\mybf{x}} \\
+\end{align*}
+Since both $(T\mybf{x})^T{S}(T\mybf{x})$ and $\mybf{x}^T{T\mybf{x}}$ are positive (because $S$ and $T$ are positive definite matrices) then $\lambda$ must be positive too.
+\subsection*{Section 6.5, question 34}
+\begin{align*}
+Q =
+\begin{bmatrix}
+&\sin \frac{1}{6}\pi &\sin \frac{2}{6}\pi &\sin \frac{3}{6}\pi &\sin \frac{4}{6}\pi &\sin \frac{5}{6}\pi\\
+&\sin \frac{2}{6}\pi &\sin \frac{4}{6}\pi &\sin \frac{6}{6}\pi &\sin \frac{8}{6}\pi &\sin \frac{10}{6}\pi\\
+&\sin \frac{3}{6}\pi &\sin \frac{6}{6}\pi &\sin \frac{9}{6}\pi &\sin \frac{12}{6}\pi &\sin \frac{15}{6}\pi\\
+&\sin \frac{4}{6}\pi &\sin \frac{8}{6}\pi &\sin \frac{12}{6}\pi &\sin \frac{16}{6}\pi &\sin \frac{20}{6}\pi\\
+&\sin \frac{5}{6}\pi &\sin \frac{10}{6}\pi &\sin \frac{15}{6}\pi &\sin \frac{20}{6}\pi &\sin \frac{25}{6}\pi\\
+\end{bmatrix}
+\end{align*}
+It's too much time consuming for me to calculate this manually so that could be done with octave.
+As for the eigenvalues they are described in the worked example as $2-2 \cos k{\pi}h)$ and in our case $2-2 \cos \frac{k}{6}{\pi}$ for $k=1\dots5$. And specifically $2-2\cos \frac{1}{6}\pi$, $2-2\cos \frac{2}{6}\pi$,  $2-2\cos \frac{3}{6}\pi$, $2-2\cos \frac{4}{6}\pi$, $2-2\cos \frac{5}{6}\pi$ and of course the sum is 10 because there are 5 times 2 in these lambdas and the rest are summing up to $\cos \frac{1}{6}\pi + \cos \frac{2}{6}\pi + \cos \frac{3}{6}\pi + \cos \frac{4}{6} + \cos \frac{5}{6}\pi$. The first and the fifth sum is 0, the second and the fourth sum is 0 and the middle one is already zero.\\
+The product is $(2-2\cos \frac{1}{6}\pi)(2-2\cos \frac{2}{6}\pi)(2-2\cos \frac{3}{6}\pi)(2-2\cos \frac{4}{6}\pi)(2-2\cos \frac{5}{6}\pi) = 32(\cos 0 -\cos \frac{1}{6}\pi)(\cos 0-\cos \frac{2}{6}\pi)(\cos 0-\cos \frac{3}{6}\pi)(\cos 0-\cos \frac{4}{6}\pi)(\cos 0-\cos \frac{5}{6}\pi) = 32(2\sin^2 \frac{1}{12}\pi)(2\sin^2 \frac{2}{12}\pi)(2\sin^2 \frac{3}{12}\pi)(2\sin^2\frac{4}{12}\pi)(2\sin^2\frac{5}{12}\pi)=1024*(\sin\frac{1}{12}\pi\sin\frac{2}{12}\pi\sin\frac{3}{12}\pi\sin\frac{4}{12}\pi\sin\frac{5}{12}\pi)^2=6$
+\subsection*{former Section 6.5, question 35}
+Well if $C$ is positive definite then it can be expressed as $Q^T\Lambda{Q}$. Since $C$ eigenvalues are positive then they are on $\Lambda$ diagonal which $\Lambda$ is too a positive definite matrix. 
+If we take an arbitrary $\mybf{x}=$ then
+\begin{align*}
+\mybf{x}^TA^TCA\mybf{x}=(A\mybf{x})^TC(A\mybf{x})>0
+\end{align*}
+So $A^TCA$ is positive definite as well.
+\subsection*{section 10.2 question 3(former Section 8.1, question 3)}
+
+\end{document}

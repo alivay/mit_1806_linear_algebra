@@ -1,0 +1,573 @@
+\documentclass[a4paper,11pt]{article}
+
+%Headers
+\usepackage[dvips]{graphicx}    %package that does pdfs
+\usepackage{color}              %this needs to be here also
+\usepackage{ulem}
+\usepackage{amsmath}
+\usepackage{pgfplots}
+\usepackage{adjustbox}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{tikz}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+             \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+\newcommand{\mybf}[1]{\boldsymbol{#1}}
+\newcommand{\norm}[1]{\lvert\lvert #1 \rvert\rvert}
+
+\title{%
+	Problem Set 2\\
+	\large MIT CW Linear Algebra (18.06)
+}
+\author{Aviel Livay}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+
+\section*{Section 2.5}
+\subsection*{Problem 24}
+\begin{align}
+\left[
+\begin{array}{ccc|ccc}
+1 & a & b & 1 & 0 & 0 \\
+0 & 1 & c & 0 & 1 & 0\\
+0 & 0 & 1 & 0 & 0 & 1\\
+\end{array}
+\right]
+\end{align}
+
+\begin{align}
+\left[
+\begin{array}{ccc|ccc}
+1 & a & b & 1 & 0 & 0 \\
+0 & 1 & 0 & 0 & 1 & -c\\
+0 & 0 & 1 & 0 & 0 & 1\\
+\end{array}
+\right]
+\end{align}
+
+\begin{align}
+\left[
+\begin{array}{ccc|ccc}
+1 & 0 & b & 1 & -a & ac \\
+0 & 1 & 0 & 0 & 1 & -c\\
+0 & 0 & 1 & 0 & 0 & 1\\
+\end{array}
+\right]
+\end{align}
+
+\begin{align}
+\left[
+\begin{array}{ccc|ccc}
+1 & 0 & 0 & 1 & -a & ac-b \\
+0 & 1 & 0 & 0 & 1 & -c\\
+0 & 0 & 1 & 0 & 0 & 1\\
+\end{array}
+\right]
+\end{align}
+
+\subsection*{Problem 39}
+\begin{align}
+\left[
+\begin{array}{cccc|cccc}
+1 & -a & 0 & 0 & 1 & 0 & 0 & 0 \\
+0 & 1 & -b & 0 & 0 & 1 & 0 & 0\\
+0 & 0 & 1 & -c & 0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1 & 0 & 0 & 0 & 1\\
+\end{array}
+\right]
+\end{align}
+
+\begin{align}
+\left[
+\begin{array}{cccc|cccc}
+1 & -a & 0 & 0 & 1 & 0 & 0 & 0 \\
+0 & 1 & -b & 0 & 0 & 1 & 0 & 0\\
+0 & 0 & 1 & 0 & 0 & 0 & 1 & c\\
+0 & 0 & 0 & 1 & 0 & 0 & 0 & 1\\
+\end{array}
+\right]
+\end{align}
+
+\begin{align}
+\left[
+\begin{array}{cccc|cccc}
+1 & -a & 0 & 0 & 1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 & 1 & b & bc\\
+0 & 0 & 1 & 0 & 0 & 0 & 1 & c\\
+0 & 0 & 0 & 1 & 0 & 0 & 0 & 1\\
+\end{array}
+\right]
+\end{align}
+
+\begin{align}
+\left[
+\begin{array}{cccc|cccc}
+1 & -a & 0 & 0 & 1 & a & ab & abc \\
+0 & 1  & 0 & 0 & 0 & 1 & b & bc\\
+0 & 0  & 1 & 0 & 0 & 0 & 1 & c\\
+0 & 0  & 0 & 1 & 0 & 0 & 0 & 1\\
+\end{array}
+\right]
+\end{align}
+
+\section*{Section 2.6}
+\subsection*{Problem 13}
+\begin{align}
+\left[
+\begin{array}{cccc|cccc}
+a & a & a & a & 1 & 0 & 0 & 0 \\
+a & b & b & b & 0 & 1 & 0 & 0\\
+a & b & c & c & 0 & 0 & 1 & 0\\
+a & b & c & d & 0 & 0 & 0 & 1\\
+\end{array}
+\right]
+\end{align}
+
+\begin{align}
+\left[
+\begin{array}{cccc|cccc}
+a & a   & a   & a   & 1   & 0 & 0 & 0 \\
+0 & b-a & b-a & b-a & -1  & 1 & 0 & 0\\
+0 & b-a & c-a & c-a & -1  & 0 & 1 & 0\\
+0 & b-a & c-a & d-a & -1  & 0 & 0 & 1\\
+\end{array}
+\right]
+\end{align}
+
+\begin{align}
+\left[
+\begin{array}{cccc|cccc}
+a & a   & a   & a   & 1  & 0  & 0 & 0 \\
+0 & b-a & b-a & b-a & -1 & 1  & 0 & 0\\
+0 & 0   & c-b & c-b & 0  & -1 & 1 & 0\\
+0 & 0   & c-b & d-b & 0  & -1 & 0 & 1\\
+\end{array}
+\right]
+\end{align}
+
+\begin{align}
+\left[
+\begin{array}{cccc|cccc}
+a & a   & a   & a   & 1  & 0  & 0  & 0 \\
+0 & b-a & b-a & b-a & -1 & 1  & 0  & 0\\
+0 & 0   & c-b & c-b & 0  & -1 & 1  & 0\\
+0 & 0   & 0   & d-c & 0  & 0  & -1 & 1\\
+\end{array}
+\right]
+\end{align}
+
+so 
+
+\begin{align}
+U = 
+\begin{bmatrix}
+a & a   & a   & a   \\
+0 & b-a & b-a & b-a \\
+0 & 0   & c-b & c-b \\
+0 & 0   & 0   & d-c \\
+\end{bmatrix}
+\end{align}
+And L is calculated as the inverse of the operations
+\begin{align}
+U = 
+\begin{bmatrix}
+1 & 0 & 0 & 0 \\
+1 & 1 & 0 & 0 \\
+1 & 1 & 1 & 0 \\
+1 & 1 & 1 & 1 \\
+\end{bmatrix}
+\end{align}
+
+\subsection*{Problem 18}
+\begin{subequations}
+\begin{align}
+    LDU&=L_1D_1U_1\\
+    L_1^{-1}LDU&=L_1^{-1}L_1D_1U_1\\
+    L_1^{-1}LDU&=D_1U_1\\
+    L_1^{-1}LDUU^{-1}&=D_1U_1U^{-1}\\
+    L_1^{-1}LD&=D_1U_1U^{-1}
+\end{align}
+\end{subequations}
+First let's prove that $L_1^{-1}$ is lower triangular. if we write 
+\begin{align}
+L^{-1} = 
+\begin{bmatrix}
+\mybf{y^1} & \mybf{y^2} & \dots & \mybf{y^n} \\
+\end{bmatrix}
+\end{align}
+where each $\mybf{y^k}$ is an $nx1$ matrix.
+Then by definition, 
+\begin{align}
+LL^{-1} = I 
+\begin{bmatrix}
+\mybf{e^1} & \mybf{e^2} & \dots & \mybf{e^n} \\
+\end{bmatrix}
+\end{align}
+where $\mybf{e^k}$ is the $n x 1$ matrix with a 1 in the kth row and 0s everywhere else. 
+So 
+\begin{align}
+L\mybf{y^k} = \mybf{e^k} (1<=k<=n) 
+\end{align}
+Let's look at the rows that are above k, for example the first row
+\begin{align}
+e^k_1 = \sum_{i=1}^{n} L_{1,i}*y^k_i = L_{1,1}*y^k_1
+\end{align}
+$e^k_1=0$ and also $L_{1,1}\ne 0$ implies that $y^k_1=0$
+One more look at the second row... - 
+\begin{align}
+e^k_2 = \sum_{i=1}^{n} L_{2,i}*y^k_i &= L_{2,1}*y^k_1 + L_{2,2}*y^k_1 + 0 + \dots + 0 \\
+ &=  L_{2,1}*0 + L_{2,2}*y^k_1 + 0 + \dots + 0 \\
+\end{align}
+So again
+$e^k_2=0$ and also $L_{2,2}\ne 0$ implies that $y^k_2=0$
+We can continue this way till the k'th row; all $y^k_i=0$ for $i<k$.
+Which means in other words that $L^{-1}$ is a lower triangular matrix.
+ 
+Now let's move on with the proof.
+$L_1^{-1}L$ is lower triangular because $L$ is triangular and by multiplying it with a left side matrix that is lower triangular and thus doesn't mess with the upper part of $L$ and leaves it zero. Multiplying it with $D$ on the right side - we still maintain this property. So yes $L_1^{-1}LD$ is lower triangular.
+$U^{-1}$ is upper triangular because of similar considerations. It's easy to show that multiplying two upper triangular matrices gives an upper triangular.
+
+So the equation $L1^{-1}LD=D1U1U^{-1}$ is stating that a lower triangular matrix equals an upper triangular matrix. This is possible only if both sides are actually a diagonal matrix. Both side multiply with a diagonal matrix from which you can deduce that $L1^{-1}L$ is diagonal. Since both $L1^{-1}$ and $L$  have 1's on the diagonal by definition then we have a diagonal matrix which has 1's on the diagonal - which means $L1^{-1}L=I$ which implies $L=L1$. In much the same way it can be deduced that also $U=U1$.
+And if that is the case then it's easy to replace $L1^{-1}LD=D1U1U^{-1}$ by $ID=D1I$ and deduce that $D=D1$.
+
+\subsection*{Problem 25}
+I used the following code:
+\lstset{language=Python}
+\lstset{frame=lines}
+\lstset{caption={Insert code directly in your document}}
+\lstset{label={lst:code_direct}}
+\lstset{basicstyle=\footnotesize}
+\begin{lstlisting}
+import numpy as np
+from scipy.linalg import toeplitz
+
+K = toeplitz([2, -1, 0, 0, 0], [2,-1,0,0,0]).astype('float64')
+print(K)
+
+U=K
+L=np.zeros((5,5)).astype('float64')
+np.fill_diagonal(L,1)
+
+for i in range(1,5):
+    L[i,i-1] = U[i,i-1]/U[i-1,i-1];
+    U[i, i] = U[i,i] + U[i,i-1]/U[i-1,i-1]
+    U[i, i-1] = 0
+
+print("U = {}".format(U))
+print("L = {}".format(L))
+
+LU = np.matmul(L,U)
+print("LU = {}".format(LU))
+
+
+LM1 =np.linalg.inv(L)
+
+print("LM1 = {}".format(LM1))
+
+LM1F = np.zeros((5,5))
+for i in range(0,5):
+    for j in range (0,5):
+        if i==j:
+            LM1F[i,j]=1
+        elif i<j:
+            LM1F[i,j] = 0
+        else:
+            LM1F[i, j] = (j+1)/(i+1)
+
+print("L1MF = {}".format(LM1F))
+\end{lstlisting}
+
+And the formula is (adjusting to 1..n format instead of 0..(n-1):
+
+\[
+    f(x)= 
+\begin{cases}
+    1,& \text{if } i = j\\
+    \frac{j}{i},& \text{if } i\ge j\\
+    0,              & \text{otherwise}
+\end{cases}
+\]
+
+\subsection*{Problem 26}
+\begin{align}
+\begin{bmatrix}
+2  & -1 & 0  &  0  & 0  & 0\\
+-1 & 2  & -1 &  0  & 0  & 0\\
+0  & -1 & 2  &  -1 & 0  & 0\\
+0  & 0  & -1 &  2  & -1 & 0\\
+0  & 0  & 0  &  -1 & 2  & -1\\
+0  & 0  & 0  &  0  & -1 & 2\\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+6 &  5 &  4 &  3 & 2  & 1\\
+5 & 10 &  8 &  6 & 4  & 2\\
+4 &  8 & 12 &  9 & 6  & 3\\
+3 &  6 &  9 & 12 & 8  & 4\\
+2 &  4 &  6 &  8 & 10 & 5\\
+1 &  2 &  3 &  4 & 5  & 6\\
+\end{bmatrix}
+=
+\begin{bmatrix}
+7 & 0 & 0 & 0 & 0 & 0\\
+0 & 7 & 0 & 0 & 0 & 0\\
+0 & 0 & 7 & 0 & 0 & 0\\
+0 & 0 & 0 & 7 & 0 & 0\\
+0 & 0 & 0 & 0 & 7 & 0\\
+0 & 0 & 0 & 0 & 0 & 7\\
+\end{bmatrix}
+\end{align}
+
+\section*{Section 2.7}
+\subsection*{Problem 13}
+\begin{enumerate}[label=\alph*]
+\item 
+\begin{align}
+\begin{bmatrix}
+0  & 1 & 0 \\
+0  & 0 & 1 \\
+1  & 0 & 0 \\
+\end{bmatrix}
+\end{align}
+\item 
+\begin{align}
+\begin{bmatrix}
+0  & 1 & 0 & 0 \\
+0  & 0 & 1 & 0 \\
+1  & 0 & 0 & 0 \\
+0  & 0 & 0 & 1 \\
+\end{bmatrix}
+\end{align}
+\end{enumerate}
+\subsection*{Problem 35 (former 36)}
+\begin{enumerate}
+\item lower triangular matrix with 1's on the diagonal.\\
+I shall provide here than a lower triangular matrix stays in the group under multiplication and inverse operations. We shall divide the proof into two parts: 
+\begin{enumerate}
+\item Proof that multiplying lower triangular matrix with 1 on the diagonal are still lower triangular with 1's on the diagonal. 
+\begin{enumerate}
+\item above the diagonal\\
+Let $L1$ and $L2$ be such lower triangular matrices. If we take a look at $L1 \cdot L2_{i,j}$ where i<j then we see:
+\begin{align}
+(L1L2)_{i,j} &= sum_{k=1}^{k=n} L1_{i,k}L2_{k,j}  \\
+&= sum_{k=1}^{k=i-1} L1_{i,k}L2_{k,j} + sum_{k=i}^{k=j-1} L1_{i,k}L2_{k,j} + sum_{k=j}^{k=n} L1_{i,k}L2_{k,j} \\
+&= sum_{k=1}^{k=i-1} L1_{i,k}*0 + sum_{k=i}^{k=j-1} 0*0 + sum_{k=j}^{k=n} 0*L2_{k,j} \\
+= 0
+\end{align}
+Which means that indeed that above the diagonal we have 0's.\\
+
+\item on the diagonal\\
+If we take a look at $L1 \cdot L2_{i,i}$ then we see:
+\begin{align}
+(L1L2)_{i,i} &= sum_{k=1}^{k=n} L1_{i,k}L2_{k,j}  \\
+&= sum_{k=1}^{k=i-1} L1_{i,k}L2_{k,j} + L1_{i,i}L2_{i,i} + sum_{k=i+1}^{k=n} L1_{i,k}L2_{k,i} \\
+&= sum_{k=1}^{k=i-1} L1_{i,k}*0 + 1*1 + sum_{k=i+1}^{k=n} 0*L2_{k,i} \\
+&= 1
+\end{align}
+which means that each of the diagonal elements equals 1
+\end{enumerate}
+%So to summarize: if we multiply two lower diagonal matrices with 1 on the %diagonal then we end up with a lower diagonal matrix with 1 on the diagonal.
+\item Proof that the inverse of a low triangular matrix with 1 on the diagonal is still a lower triangualr with 1's on the diagonal.\\
+Proof by induction
+\begin{enumerate}
+\item it's true for every 2x2 lower diagonal with 1's on the diagonal. let's see
+\begin{align}
+\left[
+\begin{array}{cc|cc}
+1 & 0 & 1 & 0 \\
+a & 1 & 0 & 1 \\
+\end{array}
+\right]
+\end{align}
+\begin{align}
+\left[
+\begin{array}{cc|cc}
+1 & 0 & 1 & 0 \\
+0 & 1 & -a & 1 \\
+\end{array}
+\right]
+\end{align}
+So the inverse exists and it's a lower triangular with 1's on the diagonal
+\item suppose it's true for a all matrices of size nxn. Let's see the induction step for matrices of size (n+1)x(n+1).  \\
+So suppose that $L$ and $L^{-1}$ are such lower triangular matrices with 1's on the diagonal. Let's build the the following $(n+1)x(n+1)$ dimension matrix as a lower triangular with 1's on the diagonal.
+\begin{align}
+\begin{bmatrix}
+1        & \mybf{0^T}\\
+\mybf{b} & L         \\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+x        & \mybf{c^T}\\
+\mybf{d} & M         \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+1        & \mybf{0^T}\\
+\mybf{0} & I_{nxn}         \\
+\end{bmatrix}
+\end{align}
+where both $\mybf{b}$ and $\mybf{0}$ are vectors of dimensions $nx1$ 
+When calculating the top left element of the $I_{n+1,n+1}$ matrix on the right, we noticed that $x$ must equal 1.
+When calculating the top right vector of the $I_{n+1,n+1}$ matrix on the right, we noticed that $/mybf{c^T}$ must equal 0.
+This means that the inverse is lower triangular with 1's on the diagonal as well.
+\end{enumerate}
+\end{enumerate}
+\item symmetric matrices\\
+multiplying symmetric matrices not necessarily yield a symmetric matrix. For example
+\begin{align}
+\begin{bmatrix}
+1 & 2\\
+2 & 7\\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+3 & 2\\
+2 & 1\\
+\end{bmatrix}
+=
+\begin{bmatrix}
+7 & 4\\
+20 & 11 \\
+\end{bmatrix}
+\end{align}
+which is not a symmetric matrix
+\item positive matrices\\
+Are not a closed group. For example inverse of such matrices.
+\begin{align}
+\begin{bmatrix}
+1 & 2\\
+3 & 4\\
+\end{bmatrix}
+\end{align}
+is a positive matrix. However the inverse matrix here is
+\begin{align}
+\begin{bmatrix}
+-2 & 1\\
+1.5 & -0.5\\
+\end{bmatrix}
+\end{align}
+Which has negative values
+\item diagonal matrices\\
+When multiplying two diagonal matrices $D1$ and $D2$ we get $D$ which is diagonal because $D_{i,j}$ is a dot product between row $i$ of matrix $D1$ and column $j$ of matrix $D2$ and when $i /neq j$ the result is 0.
+Also if the inverse of a diagonal matrix $D$ is $D^{-1}$ then trivially $D^{-1}_{i,i} = \frac{1}{D_{i,i}}$ 
+\item permutation matrices\\
+Stay inside the group because by definition a permutation matrix, when multiplied by another permutation matrix - gives a different permutation matrix. 
+\item matrices where $Q^{-1}=Q^T$\\
+The first question is whether $Q^{-1}$ stays inside the group. That is if we take the inverse and take the transpose of $Q^{-1}$ then we get the same result.
+\begin{align}
+{Q^{-1}}^{-1} = {Q^T}^{-1} = {Q^{-1}}^T
+\end{align}
+The second question is if $Q$ and $R$ are such matrices. Does $QR$ meets the same?
+\begin{align}
+{QR}^{-1} = R^{-1} \cdot Q^{-1}=R^T \cdot Q^T = (QR)^T
+\end{align}
+\item two more matrix groups:
+\begin{enumerate}
+\item upper triangular with 1's on the diagonal
+\item I matrices
+\end{enumerate}
+\end{enumerate}
+\subsection*{Problem 39 (former 40)}
+\begin{enumerate}[label=\alph*]
+\item $(QQ^T)_{i,i}$ are by definition $\norm{\mybf{q_i}}^2$. However in our case $QQ^T = QQ^{-1} = I$ where all the elements on the diagonal equal 1.
+\item $(QQ^T)_{i,j}$ are the dot product between row $i$ and row $j$ of the $Q$ matrix. In much the same way - $QQ^T = QQ^{-1} = I$ which indicates that for every $i \neq j$ the dot product is 0, that is $\mybf{q_i}^T\mybf{q_j}=0$.
+\item
+\begin{align}
+\begin{bmatrix}
+\cos \theta & \sin \theta\\
+\sin \theta & -cos \theta\\
+\end{bmatrix}
+\end{align}
+\end{enumerate}
+
+\section*{Section 3.1}
+\subsection*{Problem 18}
+\begin{enumerate}[label=\alph*]
+\item True. If $M$ is a symmetric matrix and $A=c \cdot M$ then $A_{i,j} = c \cdot M_{i,j} = c * M_{j,i} = A_{j,i}$. \\
+Also if $M1$ and $M2$ are symmetric matrices and $A = M1 + M2$ then $A_{i,j} = M1_{i,j} + M2_{i,j} = M1_{j,i} + M2_{j,i} = A_{j,i}$.
+\item True. If $M$ is a skew symmetric matrix and $A=c \cdot M$ then for $i \neq j$, $A_{i,j} = c \cdot M_{i,j} = c * -M_{j,i} = -A_{j,i}$. \\
+Also if $M1$ and $M2$ are both skew symmetric matrices and $A = M1 + M2$ then $A_{i,j} = M1_{i,j} + M2_{i,j} = -M1_{j,i} -M2_{j,i} = -A_{j,i}$.
+\item False. For example, we add two such matrices and get a matrix that's outside of the sub space:
+\begin{align}
+\begin{bmatrix}
+1 & 2\\
+3 & 4\\
+\end{bmatrix}
++
+\begin{bmatrix}
+4 & 2\\
+0 & -1\\
+\end{bmatrix}
+=
+\begin{bmatrix}
+5 & 4\\
+4 & 3\\
+\end{bmatrix}
+\end{align}
+\end{enumerate}
+\subsection*{Problem 18}
+If we add an extra column $\mybf{b}$ to a matrix $A$, then the column space gets larger unless the additional column is not a linear combination of the existing columns of the matrix. \\
+An example where the column space grows as result of the addition of an extra column
+\begin{align}
+\begin{bmatrix}
+1 & 1\\
+1 & 1\\
+1 & 2\\
+\end{bmatrix}
+\Longrightarrow
+\begin{bmatrix}
+1 & 1 & \circled{1} \\
+1 & 1 & \circled{1} \\
+1 & 2 & \circled{3} \\
+\end{bmatrix}
+\end{align}
+An example where the column space doesn't as result of the addition of an extra column
+\begin{align}
+\begin{bmatrix}
+1 & 1\\
+1 & 1\\
+1 & 2\\
+\end{bmatrix}
+\Longrightarrow
+\begin{bmatrix}
+1 & 1 & \circled{2} \\
+1 & 1 & \circled{2} \\
+1 & 2 & \circled{3} \\
+\end{bmatrix}
+\end{align}
+When the additional column is a linear combination of the other columns of $A$  the additional column doesn't add to the space covered by the existing columns. At that very moment, the $\mybf{x}$ is the linear combination that leads to that $\mybf{b}$. This is the case for A and this is also the case for $[\,A \,\, \mybf{b}\,]$ where $\mybf{b}$ can be either added to the linear combination multiplied by 0 or all the X's are 0 except for 1 that multiplies the $\mybf{b}$.
+\subsection*{Problem 30}
+\begin{enumerate}[label=\alph*]
+\item
+Suppose $\mybf{u}$ is a vector in the $\mybf{sum \,S + T}$ space. It means that there is is a pair of vectors $\mybf{s}$ in subspace $S$ and $\mybf{t}$ in subspace $T$ such that $\mybf{s}+\mybf{t}$ is in $\mybf{sum \,S + T}$ space. Now $c\cdot\mybf{u}=c\cdot\mybf{s}+c\cdot\mybf{t}$ where both $c\cdot\mybf{s}$ and $c\cdot\mybf{t}$ are by definition in subspace $S$ and subspace $T$ respectively.
+Also suppose that there are two vectors $\mybf{u1}$ and $\mybf{u2}$ in the $\mybf{sum \,S + T}$ space. So there exist $\mybf{s1}$ and $\mybf{s2}$ in subspace $S$ and $\mybf{t1}$ and $\mybf{t2}$ in subspace $T$ such that $\mybf{s1}+\mybf{t1}=\mybf{u1}$ and $\mybf{s2}+\mybf{t2}=\mybf{u2}$. Adding $\mybf{u1} + \mybf{u2} = \mybf{s1}+\mybf{t1}+ \mybf{s2}+\mybf{t2}=\mybf{s1}+\mybf{s2}+\mybf{t1}+\mybf{t2}$ which is an addition of two vectors: $\mybf{s1}+\mybf{s2}$ which belongs by definition to $S$ space and $\mybf{t1}+\mybf{t2}$ which belongs by definition to $T$ space. Which proves that $\mybf{u1} + \mybf{u2}$ belongs to $\mybf{sum \,S + T}$
+\item $\mybf{s}$ is a vector of size m (that crosses $\mybf{0}$). There are many such vectors on the same line and this group of vectors is called $S$. Same goes for $\mybf{t}$ belonging to a line $T$ that could be a totally different line. There's no meaning to 'add lines' so all I can think of is the addition of a vector in $S$ with a vector in $T$ creating what could belong to a totally different line $\mybf{sum \,S + T}$. As for $S \cup T$, it contains all the lines S and all the lines T. So the span should be the set of all vectors that could be created by adding vectors from $S\cup T$.
+\end{enumerate}
+\subsection*{Problem 32}
+$AB = A \cdot [\mybf{b^{(1)}},\mybf{b^{(2)}}, \dots \mybf{b^{(b)}} ]  = [A \cdot \mybf{b^{(1)}}, A \cdot \mybf{b^{(2)}}, \dots A \cdot \mybf{b^{(n)}}]$
+ 
+and each $A \cdot \mybf{b^{(k)}}$ is a linear combination of the columns of $A$ so it doesn't add any new information and thus doesn't extend the space covered by $A$.\\
+\begin{align}
+\begin{bmatrix}
+1 & 1\\
+-1 & -1\\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+1 & 1\\
+-1 & -1\\
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 & 0\\
+0 & 0\\
+\end{bmatrix}
+\end{align}
+So originally the column space in the matrix $A$ was 2 and it was reduced to 1 when squaring up.\\
+An $n$ by $n$ matrix has $\mybf{C}(A) = R^n$ exactly when A is an invertible matrix.
+\end{document}

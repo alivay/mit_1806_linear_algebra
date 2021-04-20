@@ -1,0 +1,541 @@
+\documentclass[a4paper,11pt]{article}
+
+%Headers
+\usepackage[dvips]{graphicx}    %package that does pdfs
+\usepackage{color}              %this needs to be here also
+\usepackage{ulem}
+\usepackage{amsmath}
+\usepackage{pgfplots}
+\usepackage{adjustbox}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{fancyvrb}
+\usepackage{upquote}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+             \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+\newcommand{\mybf}[1]{\boldsymbol{#1}}
+\newcommand{\norm}[1]{\lvert\lvert #1 \rvert\rvert}
+\newcommand{\autour}[1]{\tikz[baseline=(X.base)]\node [draw=black,fill=white!40,semithick,rectangle,inner sep=2pt, rounded corners=3pt] (X) {#1};}
+
+\title{%
+	Problem Set 7\\
+	\large MIT CW Linear Algebra (18.06)
+}
+\author{Aviel Livay}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\subsection*{Section 5.2, question 16}
+$Fn=F{n}_{1,1}*F{n-1}-F{n}_{1,2}*F{n-2}=1*F{n-1}-(-1)*F{n-2}=F{n-1}+F{n-2}$
+\subsection*{Section 5.2, question 21}
+$Fn=3*F{n-1}-F{n}_{1,2}*F{n-2}=1*F{n-1}-(-1)*F{n-2}=F{n-1}+F{n-2}$
+\subsection*{Section 5.2, question 32}
+\begin{align*}
+S_n=
+\begin{bmatrix}
+3 & 1 & 0 & 0 \hdots \\
+1 & 3 & 1 & 0 \hdots \\
+0 & 1 & 3 & 1 \hdots \\
+0 & 0 & 1 & 3 \hdots \\
+\vdots
+\end{bmatrix} 
+=
+3*S_{n-1}-1*T_{n-1}=3*S_{n-1}-S_{n-2}
+\end{align*}
+\begin{align*}
+T_n=
+\begin{bmatrix}
+1 & 1 & 0 & 0\hdots \\
+0 & 3 & 1 & 0\hdots \\
+0 & 1 & 3 & 1\hdots \\
+0 & 0 & 1 & 3\hdots \\
+\vdots
+\end{bmatrix} 
+=
+1*S_{n-1}-1*T_{n-2}+1*T_{n-2} = S_{n-1}
+\end{align*}
+\subsection*{Section 5.2, question 33}
+\begin{align}
+\text{det}
+\begin{bmatrix}
+1 & 1 & 1 & 1 \\
+1 & 2 & 3 & 4 \\
+1 & 3 & 6 & 10 \\
+1 & 4 & 10 & 20 \\
+\end{bmatrix}
+=
+20\text{det}
+\begin{bmatrix}
+1 & 1 & 1  \\
+1 & 2 & 3  \\
+1 & 3 & 6  \\ 
+\end{bmatrix}
++
+6\text{det}
+\begin{bmatrix}
+1 & 1 & 1 \\
+1 & 2 & 4 \\
+1 & 3 & 10 \\
+\end{bmatrix}
++
+3\text{det}
+\begin{bmatrix}
+1 & 1 & 1 \\
+1 & 3 & 4 \\
+1 & 6 & 10 \\
+\end{bmatrix}
++
+\text{det}
+\begin{bmatrix}
+1 & 1 & 1 \\
+2 & 3 & 4 \\
+3 & 6 & 10 \\
+\end{bmatrix}
+\end{align}
+\begin{align}
+\text{det}
+\begin{bmatrix}
+1 & 1 & 1 & 1 \\
+1 & 2 & 3 & 4 \\
+1 & 3 & 6 & 10 \\
+1 & 4 & 10 & 20 \\
+\end{bmatrix}
+=
+19\text{det}
+\begin{bmatrix}
+1 & 1 & 1  \\
+1 & 2 & 3  \\
+1 & 3 & 6  \\ 
+\end{bmatrix}
++
+6\text{det}
+\begin{bmatrix}
+1 & 1 & 1 \\
+1 & 2 & 4 \\
+1 & 3 & 10 \\
+\end{bmatrix}
++
+3\text{det}
+\begin{bmatrix}
+1 & 1 & 1 \\
+1 & 3 & 4 \\
+1 & 6 & 10 \\
+\end{bmatrix}
++
+\text{det}
+\begin{bmatrix}
+1 & 1 & 1 \\
+2 & 3 & 4 \\
+3 & 6 & 10 \\
+\end{bmatrix}
+\end{align}
+Subtracting (2) from (1) we get
+\begin{align}
+\text{det}
+\begin{bmatrix}
+1 & 1 & 1 & 1 \\
+1 & 2 & 3 & 4 \\
+1 & 3 & 6 & 10 \\
+1 & 4 & 10 & 20 \\
+\end{bmatrix}-
+\text{det}
+\begin{bmatrix}
+1 & 1 & 1 & 1 \\
+1 & 2 & 3 & 4 \\
+1 & 3 & 6 & 10 \\
+1 & 4 & 10 & 19 \\
+\end{bmatrix}=
+20\text{det}
+\begin{bmatrix}
+1 & 1 & 1  \\
+1 & 2 & 3  \\
+1 & 3 & 6  \\ 
+\end{bmatrix}-
+19\text{det}
+\begin{bmatrix}
+1 & 1 & 1  \\
+1 & 2 & 3  \\
+1 & 3 & 6  \\ 
+\end{bmatrix}
+\end{align}
+\begin{align}
+1-
+\text{det}
+\begin{bmatrix}
+1 & 1 & 1 & 1 \\
+1 & 2 & 3 & 4 \\
+1 & 3 & 6 & 10 \\
+1 & 4 & 10 & 19 \\
+\end{bmatrix}=
+20*1-
+19*1=1
+\end{align}
+\begin{align}
+\text{det}
+\begin{bmatrix}
+1 & 1 & 1 & 1 \\
+1 & 2 & 3 & 4 \\
+1 & 3 & 6 & 10 \\
+1 & 4 & 10 & 19 \\
+\end{bmatrix}=
+0
+\end{align}
+\subsection*{Section 5.3, question 8}
+\begin{align*}
+C =
+\begin{bmatrix}
+6 & -3 & 0 \\
+3 & 1 & -1 \\
+-6 & 2 & 1 \\
+\end{bmatrix}
+\end{align*}
+\begin{align*}
+AC^T =
+\begin{bmatrix}
+1 & 1 & 4 \\
+1 & 2 & 2 \\
+1 & 2 & 5 \\
+\end{bmatrix}
+\begin{bmatrix}
+6 & 3 & -6 \\
+-3 & 1 & 2 \\
+0 & -1 & 1 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+3 & 0 & 0 \\
+0 & 3 & 0 \\
+0 & 0 & 3 \\
+\end{bmatrix}
+\end{align*}
+So $\text{det}A=3$
+As can be seen above $det A = a_{1,1}C_{1,1}+a_{1,2}C_{1,2}+a_{1,3}C_{1,3}$. Since $C_{1,3}=0$ it doesn't matter what is the value of $a_{1,3}$ is because after multiplication by $0$ its contribution to $det A$ is anyway zero.
+\subsection*{Section 5.3, question 28}
+\begin{align*}
+\text{det}
+\begin{bmatrix}
+\sin{\phi}*cos{\theta} & \sin{\phi}*sin{\theta} & \cos{\phi} \\
+p\cos{\phi}*cos{\theta} & p\cos{\phi}*sin{\theta} & -p*\sin{\phi} \\
+-p\sin{\phi}*sin{\theta} & p\sin{\phi}*cos{\theta} & 0 \\
+\end{bmatrix}
+\end{align*}
+\begin{align*}
+= \\
+&\frac{1}{2}*p*sin(2*\phi)-p^2\sin{\phi}^2(\cos{\phi}^2+\sin{\phi}^2)=\\
+&\frac{1}{2}*p*sin(2*\phi)-p^2\sin{\phi}^2
+\end{align*}
+\subsection*{Section 5.3, question 40}
+\begin{align}
+\text{det}
+\begin{bmatrix}
+A_{1,1} & A_{1,2} \\
+A_{2,1} & A_{2,2} \\
+\end{bmatrix}
+*
+\text{det}
+\begin{bmatrix}
+A_{3,3} & A_{3,4} & A_{3,5} \\
+A_{4,3} & A_{4,4} & A_{4,5} \\
+A_{5,3} & A_{5,4} & A_{5,5} \\
+\end{bmatrix}+ \\
+\text{det}
+\begin{bmatrix}
+A_{1,1} & A_{1,3} \\
+A_{3,1} & A_{3,3} \\
+\end{bmatrix}
+*
+\text{det}
+\begin{bmatrix}
+A_{1,1} & A_{1,4} & A_{1,5} \\
+A_{4,1} & A_{4,4} & A_{4,5} \\
+A_{5,1} & A_{5,4} & A_{5,5} \\
+\end{bmatrix}+ \\
+\dots
++
+\begin{bmatrix}
+A_{4,4} & A_{4,5} \\
+A_{5,4} & A_{5,5} \\
+\end{bmatrix}
+*
+\text{det}
+\begin{bmatrix}
+A_{1,1} & A_{1,2} & A_{1,3} \\
+A_{2,1} & A_{2,2} & A_{2,3} \\
+A_{3,1} & A_{3,2} & A_{3,3} \\
+\end{bmatrix} \\
+\end{align}
+\subsection*{Section 5.3, question 41}
+\begin{align*}
+\text{det}AB = 
+\text{det}
+\begin{bmatrix}
+a_{1,1} & a_{1,2} \\
+a_{2,1} & a_{2,2} \\
+\end{bmatrix}
+*
+\text{det}
+\begin{bmatrix}
+b_{1,1} & b_{1,2} \\
+b_{2,1} & b_{2,2} \\
+\end{bmatrix}&+ \\
+\text{det}
+\begin{bmatrix}
+a_{1,1} & a_{1,3} \\
+a_{2,1} & a_{2,3} \\
+\end{bmatrix}
+*
+\text{det}
+\begin{bmatrix}
+b_{1,1} & b_{1,2} \\
+b_{3,1} & b_{3,2} \\
+\end{bmatrix}&+ \\
+\text{det}
+\begin{bmatrix}
+a_{1,2} & a_{1,3} \\
+a_{2,2} & a_{2,3} \\
+\end{bmatrix}
+*
+\text{det}
+\begin{bmatrix}
+b_{2,1} & b_{2,2} \\
+b_{3,1} & b_{3,2} \\
+\end{bmatrix}&
+\end{align*}
+I checked with octave:
+$2^2+4^2+2^2=24$
+\subsection*{Section 6.1, question 19}
+\begin{enumerate}[label=\alph*]
+\item we can say that the rank is smaller than n because with $\lambda=0$ we can say $A\mybf{x}=0*\mybf{x}=0$. Which means there exists a vector in the null space of $A$. As for whether the base of the null space can be greater than 1. That - I don't know! (answer not full)
+\item We know that $\text{det}B-\lambda*I=0$ Since $B$ has $\lambda=0$ as one of its eigenvalues then we can thus say that $\text{det}B=0$. Also $\text{det}B^T=\text{det}B=0$ So $text{det}B^T*B = 0$.
+\item Since the eigenvalues of a Matrix and it's transpose are the same then we can say $\text{det}B^T*\text{det}B=\text{det}B^2$ so the eigenvalues must be $0$, $1$ \& $4$. (Wrong answer)
+\item The eigenvalues of $A$, $A^n$, $m*A$ and $A^{-1}$ are $\lambda$, $\lambda^n$, $m*\lambda$ and $1/lambda$. So any polynomials on $A$ works the same on its eigenvalues. So in our case we get $\frac{1}{0^2+1}=1$, $\frac{1}{1^2+1}=\frac{1}{2}$ and $\frac{1}{2^2+1}=\frac{1}{5}$
+\end{enumerate}
+\subsection*{Section 6.1, question 29}
+To find the eigenvalues of a matrix $A$ we go back to the definition and say that we want to find $\lambda$ and $\mybf{x}$ such that $A\mybf{x} = \lambda\mybf{x}$. Or in other words to provide the non trivial solution to this: $(A-\lambda*I=\mybf{0}$. $A-\lambda*I$ is singular if and only if its determinant is 0. 
+\begin{enumerate}
+\item to calculate the determinant for the first matrix minus $\lambda*I$ is easy - just multiply all the elements on the diagonal and check when they are equal 0. So $(1-\lambda_1)*(4-\lambda_2)*(6-\lambda_3)=0$ So the eigenvalues are \autour{$1$}, \autour{$4$} and \autour{$6$}.
+\item The determinant in the case of matrix $B-\lambda*I$ is 
+\begin{align*}
+\text{det} 
+\begin{bmatrix}
+-\lambda_1 & 0 & 1 \\
+0 & 2-\lambda_2 & 0 \\
+3 & 0 & -\lambda_3 \\
+\end{bmatrix}
+= \\
+\lambda_1*(2-\lambda_2)*\lambda_3+3*(2-\lambda_2)= \\
+(\lambda_1*\lambda_3+3)*(2-\lambda_2) =\\
+\end{align*}
+which translates into stating that $lambda_2=2$ and $\lambda_1*\lambda_3=-3$.
+We also know that the sum of traces is the sum of eigenvalues so $\lambda_1+2+\lambda_3=2$. And it means that $\lambda_1$ and $\lambda_3$ equal $\sqrt{3}$ and $-\sqrt{3}$. We don't know who is who but finally the eigenvalues are \autour{$2$}, \autour{$\sqrt{3}$} and \autour{-$\sqrt{3}$}.
+\item As for matrix $C$, equating the determinant to 0 we get:
+\begin{align*}
+\text{det}
+\begin{bmatrix}
+2-\lambda & 2 & 2 \\
+2 & 2-\lambda & 2 \\
+2 & 2 & 2-\lambda \\
+\end{bmatrix}
+= 0 \\
+\end{align*}
+\begin{align*}
+(2-\lambda)[(2-\lambda)(2-\lambda)-4]  
+-2*[2*(2-\lambda)-4] 
++2*[4-2*(2-\lambda)]= 0 \\
+(2-\lambda)(\lambda^2-4\lambda) 
++4*\lambda
++4*\lambda = 0 \\
+2*\lambda^2-8\lambda-\lambda^3+4\lambda^2+8\lambda=0
+-\lambda^3+6\lambda^2=0 \\
+\lambda^2(\lambda-6)=0 \\
+\end{align*}
+So the eigenvalues are \autour{$0$}, \autour{$0$} and \autour{$6$}.
+\end{enumerate}
+\subsection*{Section 6.2, question 6}
+\begin{align*}
+(4-\lambda)(2-\lambda)=0 \\
+\end{align*}
+So the eigenvalues are $2$ and $4$
+To find the eigenvectors... - 
+we are looking for an $\mybf{x}$ that's in the null space of 
+\begin{align*}
+\begin{bmatrix}
+4 & 0 \\
+1 & 2 \\
+\end{bmatrix}
+\end{align*}
+that is 
+\begin{align*}
+\begin{bmatrix}
+4 & 0 \\
+1 & 2 \\
+\end{bmatrix}
+*
+\begin{bmatrix}
+x_1  \\
+x_2  \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+2x_1  \\
+2x_2  \\
+\end{bmatrix}
+\end{align*}
+So $x_1=0$ and $x_2=1$ so the first set is $\lambda_1=2$ and $\mybf{x_1}=(0,1)$.
+As for the second set - we want
+\begin{align*}
+\begin{bmatrix}
+4 & 0 \\
+1 & 2 \\
+\end{bmatrix}
+*
+\begin{bmatrix}
+x_1  \\
+x_2  \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+4x_1  \\
+4x_2  \\
+\end{bmatrix}
+\end{align*}
+So $x_1=1$ and $x_2=0.5$ so the second set is $\lambda_1=4$ and $\mybf{x_2}=(1,0.5)$.
+So we want to find $X$, $X^{-1}$ and $\Lambda$ such as to say $A=X \Lambda X^{-1}$.
+So first of all $X$ is the matrix that's composed of the eigenvectors: 
+\begin{align*}
+X = 
+\begin{bmatrix}
+0 & 1   \\
+1 & 0.5 \\
+\end{bmatrix}
+\end{align*}
+and 
+\begin{align*}
+X^{-1} = 
+\begin{bmatrix}
+-0.5 & 1   \\
+1 & 0 \\
+\end{bmatrix}
+\end{align*}
+and 
+\begin{align*}
+\Lambda = 
+\begin{bmatrix}
+2 & 0   \\
+0 & 4 \\
+\end{bmatrix}
+\end{align*}
+So
+\begin{align*}
+\begin{bmatrix}
+0 & 1   \\
+1 & 0.5 \\
+\end{bmatrix}
+*
+\begin{bmatrix}
+2 & 0   \\
+0 & 4 \\
+\end{bmatrix}
+*
+\begin{bmatrix}
+-0.5 & 1   \\
+1 & 0 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+4 & 0   \\
+1 & 2 \\
+\end{bmatrix}
+\end{align*}
+To diagonalize $A^-1$ we use the same $X$ and $X^{-1}$ matrices together with 
+\begin{align*}
+\Lambda = 
+\begin{bmatrix}
+\frac{1}{4} & 0 \\
+0 & \frac{1}{2} \\
+\end{bmatrix}
+\end{align*}
+\subsection*{Section 6.2, question 16}
+First let's find the eigenvalues of 
+\begin{align*}
+A1=
+\begin{bmatrix}
+0.6 & 0.9 \\
+0.4 & 0.1 \\
+\end{bmatrix}
+\end{align*}
+\begin{align*}
+(0.06-\lambda)(0.1-\lambda)-0.36=0\\
+0.06-0.7\lambda+\lambda^2-0.36=0\\
+\lambda^2-0.7\lambda-0.3=0\\
+\end{align*}
+So $\lambda=\frac{0.7 \pm \sqrt{0.49+1.2}}{2}=
+\frac{0.7 \pm 1.3}{2}$ and $\lambda_1=1$ while $\lambda_2=-0.3$
+To find the eigenvector of $\lambda_1=1$, we have to solve:
+\begin{align*}
+\begin{bmatrix}
+-0.4 & 0.9 \\
+0.4 & -0.9 \\
+\end{bmatrix}
+*\mybf{x_1}=0
+\end{align*}
+And we get $\mybf{x_1}={9,4}$
+To find the eigenvector of $\lambda_1=1$, we have to solve:
+\begin{align*}
+\begin{bmatrix}
+0.9 & 0.9 \\
+0.4 & 4 \\
+\end{bmatrix}
+*\mybf{x_2}=0
+\end{align*}
+And we get $\mybf{x_2}={1,-1}$
+So 
+\begin{align*}
+X = 
+\begin{bmatrix}
+9 & 1 \\
+4 & -1 \\
+\end{bmatrix}
+\end{align*}
+and
+\begin{align*}
+\Lambda = 
+\begin{bmatrix}
+1 & 0 \\
+0 & -0.3 \\
+\end{bmatrix}
+\end{align*}
+and 
+\begin{align*}
+X^{-1} =
+\frac{1}{13} *
+\begin{bmatrix}
+1 & 1 \\
+4 & -9 \\
+\end{bmatrix}
+\end{align*}
+\begin{align*}
+\lim_{k \to +\infty} \Lambda^k
+=
+\begin{bmatrix}
+1 & 0 \\
+0 & 0 \\
+\end{bmatrix}
+\end{align*}
+\begin{align*}
+\lim_{k \to +\infty} X \Lambda^k X^{-1}
+=
+\frac{1}{13}
+\begin{bmatrix}
+9 & 9 \\
+4 & 4 \\
+\end{bmatrix}
+\end{align*}
+The columns contain the eigenvector corresponding to the surviving eigenvalue: $1$: $(9,4)$.
+\subsection*{Section 6.2, question 35 (former section 6.2, question 37}
+\end{document}

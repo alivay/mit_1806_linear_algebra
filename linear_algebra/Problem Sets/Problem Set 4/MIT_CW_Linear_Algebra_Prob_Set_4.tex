@@ -1,0 +1,638 @@
+\documentclass[a4paper,11pt]{article}
+
+%Headers
+\usepackage[dvips]{graphicx}    %package that does pdfs
+\usepackage{color}              %this needs to be here also
+\usepackage{ulem}
+\usepackage{amsmath}
+\usepackage{pgfplots}
+\usepackage{adjustbox}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{tikz}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+             \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+\newcommand{\mybf}[1]{\boldsymbol{#1}}
+\newcommand{\norm}[1]{\lvert\lvert #1 \rvert\rvert}
+
+\title{%
+	Problem Set 3\\
+	\large MIT CW Linear Algebra (18.06)
+}
+\author{Aviel Livay}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\subsection*{Worked example - 3.4A}
+\begin{enumerate}[label=\alph*]
+\item The vectors $v_1=(1,2,0)$ and $v_2=(2,3,0)$ are independent because the only combination $c_1 \cdot v_1 + c_2 \cdot v_2 = 0$ is $c_1=c_2=0$
+\item they are a basis 
+\item they span a plane $Z=0$ in $\mybf{R^3}$.
+\item they dimension of $\mybf{V}$ is 2 because two independent vectors span it.
+\item the following is a matrix that has $\mybf{V}$ as its column space:
+\begin{align*}
+\begin{bmatrix}
+1 & 2 \\
+2 & 3 \\
+0 & 0 \\
+\end{bmatrix}\\
+\end{align*}
+Also the following is a matrix that has $\mybf{V}$ as its column space: 
+\begin{align*}
+\begin{bmatrix}
+1 & 0 \\
+0 & 1 \\
+0 & 0 \\
+\end{bmatrix}\\
+\end{align*}
+But actually it could be any 3 by n matrix A of rank 2 where each column is a linear combination of $\mybf{v_1}$ and $\mybf{v_2}$.
+\item we are looking for a matrix that when multiplied with each of the vectors - gives $\mybf{0}$.
+So the rows of this matrix should have a $0$ dot product with both $\mybf{v_1}$ and $\mybf{v_2}$.It's actually perpendicular to the Z plane and it's:
+\begin{align*}
+\begin{bmatrix}
+0 & 0 & 1 \\
+\end{bmatrix}\\
+\end{align*}
+But actually it could be any matrix of m by 3 with a rank of 1.
+\item An example for $\mybf{v_3}$ that complete the basis $\mybf{v_1}$, $\mybf{v_1}$, $\mybf{v_1}$ in $\mybf{R^3}$ is $(0,0,1)$. Which is orthogonal to the Z space. But actually it can be any vector $(a,b,c)$ as long as $c \neq 0$.
+\end{enumerate}
+\subsection*{Worked example - 3.4B}
+If B is invertible then we know that the only $\mybf{x}$ that gives $B\mybf{x}=0$ is $\mybf{x}=\mybf{0}$. Calculating $W*B\mybf{x}$ for that $\mybf{x}$ will give $\mybf{0}$ which means that $(WB)\mybf{x}=\mybf{0}$ for non zero $\mybf{x}$. \\
+If B is not invertible then there exist a $\mybf{x} \ne \mybf{0}$ such that $B\mybf{x}=\mybf{0}$. Multiplying both side by $W$ gives $WB\mybf{x}=W\mybf{0}$ or in other words $(WB)\mybf{x}=\mybf{0}$ or in other words $V\mybf{x}=\mybf{0}$ for a non zero $\mybf{x}$ which means that the columns $\mybf{v_1}$, $\mybf{v_2}$ and $\mybf{v_3}$ are linearly independent.\\
+So the test should be whether the B matrix is invertible or not.\\
+if $c \ne 1$ then B is invertible. Which according to the above means that $\mybf{v_1}$, $\mybf{v_2}$ and $\mybf{v_3}$ are linearly independent.\\
+If how ever c=1 then B is invertible. The second column of B is the sum of the first and the third column, and indeed the second equation for $mybf{v_2}$ is the sum of the equations for $\mybf{v_1}$ and $\mybf{v_3}$.
+\subsection*{Worked example - 3.4B}
+If we say that a set of vectors is a basis then every vector in the space can be expressed by a linear combination of these vectors and also they are linearly independent.
+S we know that $\mybf{v_1}, \dots \mybf{v_n}$ are a basis. So 
+\begin{enumerate}
+\item for every vector $\mybf{b}$ in $\mybf{R^N}$ there's $\mybf{x}$ such that $V\mybf{x}=\mybf{b}$
+\item The only $\mybf{x}$ that results in $V\mybf{x}=\mybf{0}$ is $\mybf{x}=\mybf{0}$
+\end{enumerate}
+As for $AV$
+\begin{enumerate}
+\item for every vector $\mybf{b}$ in $\mybf{R^N}$ is there $\mybf{x}$ such that $AV\mybf{x}=\mybf{b}$? There is because if we multiply both sides by $A^{-1}$ then we get $V\mybf{x}=A^{-1}mybf{b}$. $A^{-1}mybf{b}$ is a vector in $\mybf{R^N}$ so by definition there's a vector $\mybf{x}$ such that $V\mybf{x}$ equals this vector.
+\item Suppose there was a $\mybf{x} \ne \mybf{0}$ such that $AV\mybf{x}=\mybf{0}$. Multiplying both sides again we get that it means that there exists  such a $\mybf{x}$ such that $V\mybf{x}=\mybf{0}$, however by definition - there isn't.
+\end{enumerate}
+\subsection*{Section 3.5, Problem 2  (Former section 3.5, Problem 2)}
+To find the largest possible number of independent vectors, we shall do elimination.
+\begin{align*}
+\begin{bmatrix}
+1  & 1  & 1  & 0  & 0  & 0 \\
+-1 & 0  & 0  & 1  & 1  & 0 \\
+0  & -1 & 0  & -1 & 0  & 1 \\
+0  & 0  & -1 & 0  & -1 & -1 \\
+\end{bmatrix}\\
+\end{align*}
+\begin{align*}
+\begin{bmatrix}
+1  & 1  & 1  & 0  & 0  & 0 \\
+0  & 1  & 1  & 1  & 1  & 0 \\
+0  & -1 & 0  & -1 & 0  & 1 \\
+0  & 0  & -1 & 0  & -1 & -1 \\
+\end{bmatrix}
+\end{align*}
+\begin{align*}
+\begin{bmatrix}
+1  & 1  & 1  & 0  & 0  & 0 \\
+0  & 1  & 1  & 1  & 1  & 0 \\
+0  & 0  & 1  & 0  & 1  & 1 \\
+0  & 0  & -1 & 0  & -1 & -1 \\
+\end{bmatrix}
+\end{align*}
+\begin{align*}
+\begin{bmatrix}
+\circled{1} & 1  			& 1  			& 0  & 0  & 0 \\
+0  			& \circled{1}  	& 1  			& 1  & 1  & 0 \\
+0  			& 0  			& \circled{1}  	& 0  & 1  & 1 \\
+0  			& 0  			& 0  			& 0  & 0  & 0 \\
+\end{bmatrix}
+\end{align*}
+There are 3 pivots so we expect to find at most 3 independent vectors. Since we didn't have to replace the first 3 lines, then the 3 independent vectors are the first 3:
+\begin{align*}
+\begin{bmatrix}
+1   \\
+-1  \\
+0   \\
+0  	\\
+\end{bmatrix},
+\begin{bmatrix}
+1   \\
+0   \\
+-1  \\
+0  	\\
+\end{bmatrix},
+\begin{bmatrix}
+1   \\
+0   \\
+0   \\
+-1  \\
+\end{bmatrix}
+\end{align*}
+Let's see if we can express the rest of the vectors using these 3.
+\begin{align}
+\left[
+\begin{array}{ccc|c}
+1  & 1  & 1  & 0  \\
+-1 & 0  & 0  & 1  \\
+0  & -1 & 0  & -1 \\
+0  & 0  & -1 & 0  \\
+\end{array}
+\right]
+\end{align}
+\begin{align}
+\left[
+\begin{array}{ccc|c}
+1  & 1  & 1  & 0  \\
+0  & 1  & 1  & 1  \\
+0  & -1 & 0  & -1 \\
+0  & 0  & -1 & 0  \\
+\end{array}
+\right]
+\end{align}
+\begin{align}
+\left[
+\begin{array}{ccc|c}
+1  & 1  & 1  & 0  \\
+0  & 1  & 1  & 1  \\
+0  & 0  & 1  & 0  \\
+0  & 0  & -1 & 0  \\
+\end{array}
+\right]
+\end{align}
+\begin{align}
+\left[
+\begin{array}{ccc|c}
+1  & 1  & 1  & 0  \\
+0  & 1  & 1  & 1  \\
+0  & 0  & 1  & 0  \\
+0  & 0  & 0  & 0  \\
+\end{array}
+\right]
+\end{align}
+\begin{align}
+\left[
+\begin{array}{ccc|c}
+1  & 1  & 0  & 0  \\
+0  & 1  & 0  & 1  \\
+0  & 0  & 1  & 0  \\
+0  & 0  & 0  & 0  \\
+\end{array}
+\right]
+\end{align}
+\begin{align}
+\left[
+\begin{array}{ccc|c}
+1  & 0  & 0  & -1  \\
+0  & 1  & 0  & 1   \\
+0  & 0  & 1  & 0   \\
+0  & 0  & 0  & 0   \\
+\end{array}
+\right]
+\end{align}
+And indeed $\mybf{v4} = -\mybf{v_1}+\mybf{v_2}$
+\subsection*{Section 3.4, Problem 20  (Former section 3.5, Problem 20)}
+The plane is $x-2y+3z=0$. A plane in $\mybf{R^3}$ can be expressed by two vectors which are actually the base.
+\begin{align}
+\begin{bmatrix}
+1 \\
+0 \\
+-\frac{1}{3} \\
+\end{bmatrix},
+\begin{bmatrix}
+0 \\
+1 \\
+\frac{2}{3} \\
+\end{bmatrix} \\
+\end{align}
+The intersection of $x-2y+3z=0$ with $Z=0$ (The $XY$ plane) needs to meet $x-2y=0$ and since this is a line then there's only one vector in the base:
+\begin{align}
+\begin{bmatrix}
+1 \\
+\frac{1}{2} \\
+0
+\end{bmatrix}
+\end{align}
+The vectors that are perpendicular to the plane are by definition $(1,-2,3)$
+\subsection*{Section 3.4, Problem 37  (Former section 3.5, Problem 37)}
+Multiplying by S on the right side shifts A to the right.
+Multiplying by S on the left side shifts A upward.
+It means that each $(AS)_{i,j}$ (also $(SA)_{i,j})$ gets its value from below $(i+1,j)$ and from the left $(i,j-1)$. It means that $A_{i+1,j}=A_{i,j+1}$ or in other words - the values along the diagonals are the same. Moreover for the case of $i=n$ the shift up brings 0 because there's no line $i+1$. Same argument for $j=1$. So we end up with a matrix on which all the diagonals have the same value and all diagonals below the primary diagonal have a value of $0$.
+The subspace of matrices that commute with the shift S has thus the dimension $n$. In our case we can see a 3x3 case with free $a$, $b$ and $c$ variables. 
+\subsection*{Section 3.4, Problem 41  (Former section 3.5, Problem 41)}
+So we are saying that the $I$ Matrix can be expressed as a linear combination of the other 5 permutations matrices. So to find the linear combination - let's put all of these matrices into one big matrix and solve.
+I put the matrices into columns: $P_{32}$, $P_{31}$, $P_{21}$, $P_{21}P_{32}$, $P_{32}P_{21}$, $I$.
+\begin{align}
+\left[
+\begin{array}{ccccc|c}
+1 & 0 & 0 & 0 & 0 & 1  \\
+0 & 0 & 1 & 0 & 1 & 0  \\
+0 & 1 & 0 & 1 & 0 & 0  \\
+0 & 0 & 1 & 1 & 0 & 0  \\
+0 & 1 & 0 & 0 & 0 & 1  \\
+1 & 0 & 0 & 0 & 1 & 0  \\
+0 & 1 & 0 & 0 & 1 & 0  \\
+1 & 0 & 0 & 1 & 0 & 0  \\
+0 & 0 & 1 & 0 & 0 & 1  \\
+\end{array}
+\right]
+\end{align}
+Looking at the table we can see that $P_{32} + P_{31} + P_{21} = P_{21}P_{32} + P_{32}P_{21} + I$
+We can continue to get the R form of this matrix - 
+\begin{align}
+\left[
+\begin{array}{ccccc|c}
+1 & 0 & 0 & 0 & 0 & 1  \\
+0 & 0 & 1 & 0 & 1 & 0  \\
+0 & 1 & 0 & 1 & 0 & 0  \\
+0 & 0 & 1 & 1 & 0 & 0  \\
+0 & 1 & 0 & 0 & 0 & 1  \\
+0 & 0 & 0 & 0 & 1 & -1  \\
+0 & 1 & 0 & 0 & 1 & 0  \\
+0 & 0 & 0 & 1 & 0 & -1  \\
+0 & 0 & 1 & 0 & 0 & 1  \\
+\end{array}
+\right]
+\end{align}
+\begin{align}
+\left[
+\begin{array}{ccccc|c}
+1 & 0 & 0 & 0 & 0 & 1  \\
+0 & 1 & 0 & 1 & 0 & 0  \\
+0 & 0 & 1 & 0 & 1 & 0  \\
+0 & 0 & 1 & 1 & 0 & 0  \\
+0 & 0 & 0 & -1 & 0 & 1  \\
+0 & 0 & 0 & 0 & 1 & -1  \\
+0 & 0 & 0 & -1 & 1 & 0  \\
+0 & 0 & 0 & 1 & 0 & -1  \\
+0 & 0 & 1 & 0 & 0 & 1  \\
+\end{array}
+\right]
+\end{align}
+\begin{align}
+\left[
+\begin{array}{ccccc|c}
+1 & 0 & 0 & 0 & 0 & 1  \\
+0 & 1 & 0 & 1 & 0 & 0  \\
+0 & 0 & 1 & 0 & 1 & 0  \\
+0 & 0 & 0 & 1 & -1 & 0  \\
+0 & 0 & 0 & -1 & 0 & 1  \\
+0 & 0 & 0 & 0 & 1 & -1  \\
+0 & 0 & 0 & -1 & 1 & 0  \\
+0 & 0 & 0 & 1 & 0 & -1  \\
+0 & 0 & 0 & 0 & -1 & 1  \\
+\end{array}
+\right]
+\end{align}
+\begin{align}
+\left[
+\begin{array}{ccccc|c}
+1 & 0 & 0 & 0 & 0 & 1  \\
+0 & 1 & 0 & 1 & 0 & 0  \\
+0 & 0 & 1 & 0 & 1 & 0  \\
+0 & 0 & 0 & 1 & -1 & 0  \\
+0 & 0 & 0 & 0 & -1 & 1  \\
+0 & 0 & 0 & 0 & 1 & -1  \\
+0 & 0 & 0 & 0 & 0 & 0  \\
+0 & 0 & 0 & 0 & 1 & -1  \\
+0 & 0 & 0 & 0 & -1 & 1  \\
+\end{array}
+\right]
+\end{align}
+\begin{align}
+\left[
+\begin{array}{ccccc|c}
+1 & 0 & 0 & 0 & 0 & 1  \\
+0 & 1 & 0 & 1 & 0 & 0  \\
+0 & 0 & 1 & 0 & 1 & 0  \\
+0 & 0 & 0 & 1 & -1 & 0  \\
+0 & 0 & 0 & 0 & 1 & -1  \\
+0 & 0 & 0 & 0 & 1 & -1  \\
+0 & 0 & 0 & 0 & 0 & 0  \\
+0 & 0 & 0 & 0 & 1 & -1  \\
+0 & 0 & 0 & 0 & -1 & 1  \\
+\end{array}
+\right]
+\end{align}
+\begin{align}
+\left[
+\begin{array}{ccccc|c}
+\circled{1} & 0 & 0 & 0 & 0 & 1  \\
+0 & \circled{1} & 0 & 1 & 0 & 0  \\
+0 & 0 & \circled{1} & 0 & 1 & 0  \\
+0 & 0 & 0 & \circled{1} & -1 & 0  \\
+0 & 0 & 0 & 0 & \circled{1} & -1  \\
+0 & 0 & 0 & 0 & 0 & 0  \\
+0 & 0 & 0 & 0 & 0 & 0  \\
+0 & 0 & 0 & 0 & 0 & 0  \\
+0 & 0 & 0 & 0 & 0 & 0  \\
+\end{array}
+\right]
+\end{align}
+The five matrices are linearly independent because there are 5 pivots.
+\subsection*{Section 3.4, Problem 44  (Former section 3.5, Problem 44)}
+In an $m$ by $n$ matrix - we get a vector of size $m$ but with a dimension of $r$. It's because it is a linear combination of the columns who span an $r$ dimensional space. The dimension of the null space is $n-r$ and the dimension of the inputs... that is the $\mybf{x}$ vector that we multiply with is $n$.
+\subsection*{Section 3.5, Problem 11  (Former section 3.6, Problem 11)}
+\begin{enumerate}[label=\alph*]
+\item if $r<m$ then it means that the column space cannot reach all possible $\mybf{b}$.
+\item if A is invertible
+\end{enumerate}
+\subsection*{Section 3.5, Problem 24  (Former section 3.6, Problem 24)}
+$A^T\mybf{y}=\mybf{d}$ is solvable if $\mybf{d}$ is in the column space of $A^T$ or if $\mybf{d}^T$ is in the row space of $A$. The solution is unique when the null space of $A^T$ contains only the zero vector
+\subsection*{Section 3.5, Problem 27  (Former section 3.6, Problem 28)}
+\begin{enumerate}
+\item As for the check board and the chess board - the rank is 2 because by elimination all rows can become 0 except for the first 2 who are independent.
+\item The basis for the row space should be the first two rows.
+\item The basis for the left null space of checkers is the base for the null space of the transposed matrix which is the same:
+After some elimination we have:
+\begin{align*}
+\begin{bmatrix}
+1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
+0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+\end{bmatrix}
+\end{align*}
+So the basis is:
+\begin{align*}
+\begin{bmatrix}
+-1 \\
+0 \\
+1 \\
+0 \\
+0 \\
+0 \\
+0 \\
+0 \\
+\end{bmatrix},
+\begin{bmatrix}
+0 \\
+-1 \\
+0 \\
+1 \\
+0 \\
+0 \\
+0 \\
+0 \\
+\end{bmatrix},
+\begin{bmatrix}
+-1 \\
+0 \\
+0 \\
+0 \\
+1 \\
+0 \\
+0 \\
+0 \\
+\end{bmatrix},
+\begin{bmatrix}
+0 \\
+-1 \\
+0 \\
+0 \\
+0 \\
+1 \\
+0 \\
+0 \\
+\end{bmatrix},
+\begin{bmatrix}
+-1 \\
+0 \\
+0 \\
+0 \\
+0 \\
+0 \\
+1 \\
+0 \\
+\end{bmatrix},
+\begin{bmatrix}
+0 \\
+-1 \\
+0 \\
+0 \\
+0 \\
+0 \\
+0 \\
+1 \\
+\end{bmatrix},
+\end{align*}
+\item The basis for the left null space of checkers is the base for the null space of the transposed matrix which after few steps of elimination gets to :
+After some elimination we have:
+\begin{align*}
+\begin{bmatrix}
+1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+\end{bmatrix}
+\end{align*}
+So the basis
+\begin{align*}
+\begin{bmatrix}
+-1 \\
+-1 \\
+1 \\
+0 \\
+0 \\
+0 \\
+0 \\
+0 \\
+\end{bmatrix},
+\begin{bmatrix}
+-1 \\
+-1 \\
+0 \\
+1 \\
+0 \\
+0 \\
+0 \\
+0 \\
+\end{bmatrix},
+\begin{bmatrix}
+-1 \\
+-1 \\
+0 \\
+0 \\
+1 \\
+0 \\
+0 \\
+0 \\
+\end{bmatrix},
+\begin{bmatrix}
+-1 \\
+-1 \\
+0 \\
+0 \\
+0 \\
+1 \\
+0 \\
+0 \\
+\end{bmatrix},
+\begin{bmatrix}
+-1 \\
+0 \\
+0 \\
+0 \\
+0 \\
+0 \\
+1 \\
+0 \\
+\end{bmatrix},
+\begin{bmatrix}
+0 \\
+-1 \\
+0 \\
+0 \\
+0 \\
+0 \\
+0 \\
+1 \\
+\end{bmatrix}
+\end{align*}
+\item The base of the null space of $C$:
+\begin{align*}
+\begin{bmatrix}
+r & n & b & q & k & b & n & r \\
+p & p & p & p & p & p & p & p \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+p & p & p & p & p & p & p & p \\
+r & n & b & q & k & b & n & r \\
+\end{bmatrix}
+\end{align*}
+\begin{align}
+\begin{bmatrix}
+1 & \frac{n}{r} & \frac{b}{r} & \frac{q}{r} & \frac{k}{r} & \frac{b}{r} & \frac{n}{r} & 1 \\
+0 & 1 & \frac{r-b}{r-n} & \frac{r-q}{r-n} & \frac{r-k}{r-n} & \frac{r-b}{r-n} & 1 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+\end{bmatrix}
+\end{align}
+\begin{align*}
+\begin{bmatrix}
+1 & 0 & \frac{b-n}{r} & \frac{q-n}{r} & \frac{k-n}{r} & \frac{b-n}{r} & 0 & 1 \\
+0 & 1 & \frac{r-b}{r-n} & \frac{r-q}{r-n} & \frac{r-k}{r-n} & \frac{r-b}{r-n} & 1 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+\end{bmatrix}
+\end{align*}
+so the null space is:
+\begin{align*}
+\begin{bmatrix}
+\frac{n-b}{r} &  \\
+\frac{b-r}{r-n} &  \\
+1 & \\
+0 & \\
+0 & \\
+0 & \\
+0 & \\
+0 & \\
+\end{bmatrix},
+\begin{bmatrix}
+\frac{n-q}{r} &  \\
+\frac{q-r}{r-n} &  \\
+0 & \\
+1 & \\
+0 & \\
+0 & \\
+0 & \\
+0 & \\
+\end{bmatrix},
+\begin{bmatrix}
+\frac{n-k}{r} &  \\
+\frac{k-r}{r-n} &  \\
+0 & \\
+0 & \\
+1 & \\
+0 & \\
+0 & \\
+0 & \\
+\end{bmatrix},
+\begin{bmatrix}
+\frac{n-b}{r} &  \\
+\frac{b-r}{r-n} &  \\
+0 & \\
+0 & \\
+0 & \\
+1 & \\
+0 & \\
+0 & \\
+\end{bmatrix},
+\begin{bmatrix}
+0 &  \\
+-1  \\
+0 & \\
+0 & \\
+0 & \\
+0 & \\
+1 & \\
+0 & \\
+\end{bmatrix},
+\begin{bmatrix}
+-1 &  \\
+0 &  \\
+0 & \\
+0 & \\
+0 & \\
+0 & \\
+0 & \\
+1 & \\
+\end{bmatrix},
+\end{align*}
+\end{enumerate}
+\subsection*{Section 3.5, Problem 29  (Former section 3.6, Problem 30)}
+if we take $\mybf{u}=(1,b)$ and $\mybf{v}=(1,a)$ then we get the rank 1 matrix:
+\begin{align*}
+\begin{bmatrix}
+1 & a  \\
+b & ab \\
+\end{bmatrix}
+\end{align*}
+top left: row space is $(1,a)$.\\
+bottom left: null space is $(-a,1)$\\
+top right: column space is $(1,b)$.\\
+bottom right: left null space is $(b,-1)$.\\
+If $B$ produces the same spaces then $B=C*A$ where C is a constant in $R^1$.
+\subsection*{Section 3.5, Problem 30  (Former section 3.6, Problem 31)}
+\begin{enumerate}[label=\alph*]
+\item We notice that $(1,1,1)$ is in the null space of $A$ so if we build a matrix on which all columns are in the column space then we shall have 0 on all columns of the multiplication $AX$. Here's an example:
+\begin{align*}
+\begin{bmatrix}
+a & b & c\\
+a & b & c\\
+a & b & c\\
+\end{bmatrix}
+\end{align*}
+\item the column space are the columns with pivots after elimination, having the specific vector: $(1, -1, 0)$ and $(0,1,-1)$. So as an example:
+\begin{align*}
+\begin{bmatrix}
+d    & f    & h\\
+-d+e & -f+g & -h+i\\
+e    & g    & i\\
+\end{bmatrix}
+\end{align*}
+\end{enumerate}
+The dimensions are 3 for the null space matrix and 6 for the column space. The   dimension of the null space of the columns of $A$ is 3. The dimension of each such column null space is 1. The dimension of each such column column space is 2 (=rank) and indeed 1+2=3. When dealing with 2 more such columns we are multiplying this by 3 and get 3+6=9.  
+\end{document}

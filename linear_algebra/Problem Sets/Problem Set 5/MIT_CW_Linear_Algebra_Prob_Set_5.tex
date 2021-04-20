@@ -1,0 +1,367 @@
+\documentclass[a4paper,11pt]{article}
+
+%Headers
+\usepackage[dvips]{graphicx}    %package that does pdfs
+\usepackage{color}              %this needs to be here also
+\usepackage{ulem}
+\usepackage{amsmath}
+\usepackage{pgfplots}
+\usepackage{adjustbox}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{fancyvrb}
+\usepackage{upquote}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+             \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+\newcommand{\mybf}[1]{\boldsymbol{#1}}
+\newcommand{\norm}[1]{\lvert\lvert #1 \rvert\rvert}
+
+\title{%
+	Problem Set 5\\
+	\large MIT CW Linear Algebra (18.06)
+}
+\author{Aviel Livay}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\subsection*{Worked example - 4.1A}
+\begin{enumerate}[label=\alph*]
+\item spaces with 0, 1, 2 or 3 dimensions
+\item 3
+\item 6x9
+\item 6x9
+\end{enumerate}
+\subsection*{Section 4, question 7}
+We start with the matrix:
+\begin{align*}
+A = 
+\begin{bmatrix}
+1 & -1 & 0 \\
+0 & 1 & -1\\
+1 & 0 & -1\\
+\end{bmatrix}\\
+\end{align*}
+We are actually looking for a vector that performs linear combination on the rows of $A$ and sends them to 0.
+Such a vector is in the left null space.
+For convenience we shall be looking for it in the column space of $A^T$.
+\begin{align*}
+A^T = 
+\begin{bmatrix}
+1 & 0 & 1 \\
+-1 & 1 & 0\\
+0 & -1 & -1\\
+\end{bmatrix}\\
+\end{align*}
+The special solution for this matrix is $C*(-1,-1,1)$. Dot product with $\mybf{b}=(1,1,1)$ give $-C$ so essentially $C=-1$ and the vector that we are looking for is $(1,1,-1)$
+It means that $y_1=1$, $y_2=1$ and $y_3=-1$ and indeed if we combine the rows of A this way we get $0$ and if we combine the solution $(1,1,1)$ we get $1$. 
+\subsection*{Section 4.1, question 9}
+If $A^TA\mybf{x} = 0$ then $A\mybf{x} = 0$. Reason: $A\mybf{x}$ is in the null space of $A^T$ and also in the
+column space of A and those spaces are orthogonal. Conclusion: $A^TA$ has the same null space as A.
+\subsection*{Section 4.1, question 31}
+$N$ is the null space of $A$. Thus $N'$ is the left null space of $A^T$. $B$ is the null space of $N'$ which means it's complementing and orthogonal to this space, which means it is the row space of A.  
+To illustrate this, I took as requested a random matrix of dimensions 6x12. I created N, and calculated B as the null space of N'. Then I added B' at the bottom of A. Each line in that matrix is a linear combination of the rows of A, so when reducing to echelon form I was left with 6 pivots.
+\begin{Verbatim}[fontsize=\tiny]
+>> A=rand(6,12)
+A =
+
+   0.444654   0.091695   0.163208   0.136976   0.855099   0.148510   0.993936   0.275570   0.731713   0.286653   0.517904   0.204220
+   0.512112   0.439665   0.078789   0.396367   0.468470   0.963250   0.813834   0.190640   0.440366   0.565692   0.987456   0.566036
+   0.998993   0.976260   0.485692   0.876608   0.981196   0.668222   0.295224   0.990402   0.165956   0.955917   0.183341   0.446471
+   0.994070   0.022294   0.463387   0.266155   0.545232   0.402779   0.127522   0.043596   0.214838   0.921090   0.597919   0.032974
+   0.184608   0.280592   0.649525   0.079031   0.101671   0.504168   0.939635   0.908437   0.063399   0.492408   0.537304   0.313639
+   0.923165   0.350907   0.011296   0.721968   0.287685   0.792693   0.830567   0.896162   0.752956   0.114624   0.932165   0.850104
+
+>> N=null(A)
+N =
+
+   2.3285e-01  -2.5112e-02  -2.3838e-01  -2.5244e-01  -4.0701e-01  -8.9754e-02
+   5.7609e-01  -1.9746e-02   2.5389e-01  -1.9488e-01  -7.2454e-02  -2.7393e-01
+  -1.4525e-02  -4.5621e-01   3.0811e-01  -4.1418e-01   2.4363e-01   2.0469e-01
+  -2.5006e-01  -5.8525e-01  -1.4046e-01   3.2483e-01   3.6212e-01  -2.2300e-01
+  -1.9095e-01   2.3872e-01  -2.2861e-01  -2.3038e-01   2.9013e-01   2.1044e-01
+  -5.8847e-01   1.0082e-01   7.2895e-02  -3.3836e-01  -2.4707e-01  -4.6235e-02
+   5.4514e-02  -3.1362e-01  -3.2729e-01   9.9099e-02  -3.2287e-01  -1.5376e-01
+  -1.4713e-01   4.5729e-01  -3.3797e-03   1.0940e-01   1.0045e-01  -9.0621e-02
+  -1.1140e-01  -4.5911e-03   7.5828e-01   1.0279e-01  -9.3115e-02  -5.1709e-02
+   1.1881e-02   1.1536e-01   1.4364e-01   6.4010e-01  -1.6644e-01   8.1389e-02
+   2.9362e-01   2.3279e-01  -5.1970e-02  -1.6616e-02   5.8446e-01  -1.7447e-01
+   2.1218e-01  -7.8673e-02  -3.2026e-02   1.0640e-01  -3.3075e-02   8.4099e-01
+
+>> B=null(N')
+B =
+
+   1.3155e-01  -2.8420e-01  -1.9117e-01  -3.0052e-01  -5.3832e-01   3.6900e-01
+  -2.5995e-01   3.6115e-01   1.7252e-01   4.3873e-01  -6.1616e-02   2.4690e-01
+   3.4159e-01   1.2410e-01  -4.8918e-01   1.4939e-01  -1.2211e-01  -1.2377e-01
+  -2.1037e-01   1.2095e-01   1.0789e-01  -6.9721e-02  -2.6086e-01   3.8134e-01
+   2.0330e-01  -7.0396e-02   4.5417e-01   4.2852e-01  -4.8419e-01  -4.6117e-02
+  -9.7087e-02  -3.2416e-02  -9.1174e-02   2.6471e-01   3.0250e-01   5.2934e-01
+   6.5993e-01   2.1804e-01   2.6141e-01   1.4225e-01   2.8659e-01   9.1339e-03
+   2.3030e-01   7.1592e-01  -2.2525e-01  -2.4922e-01  -1.9917e-01   1.4443e-01
+   2.9842e-01  -1.3771e-01   4.2898e-01  -2.5810e-01  -1.3539e-01   1.1697e-01
+   1.4957e-01  -1.9551e-01  -3.7410e-01   5.2099e-01  -1.9372e-01   1.1123e-01
+   3.1763e-01  -3.2949e-01  -8.6204e-02  -5.2627e-02   3.2133e-01   4.0210e-01
+  -5.0522e-02   1.6411e-01   1.3302e-01  -1.1475e-01   1.2884e-01   3.8876e-01
+
+>> C =[A;B']
+C =
+
+   4.4465e-01   9.1695e-02   1.6321e-01   1.3698e-01   8.5510e-01   1.4851e-01   9.9394e-01   2.7557e-01   7.3171e-01   2.8665e-01   5.1790e-01   2.0422e-01
+   5.1211e-01   4.3967e-01   7.8789e-02   3.9637e-01   4.6847e-01   9.6325e-01   8.1383e-01   1.9064e-01   4.4037e-01   5.6569e-01   9.8746e-01   5.6604e-01
+   9.9899e-01   9.7626e-01   4.8569e-01   8.7661e-01   9.8120e-01   6.6822e-01   2.9522e-01   9.9040e-01   1.6596e-01   9.5592e-01   1.8334e-01   4.4647e-01
+   9.9407e-01   2.2294e-02   4.6339e-01   2.6616e-01   5.4523e-01   4.0278e-01   1.2752e-01   4.3596e-02   2.1484e-01   9.2109e-01   5.9792e-01   3.2974e-02
+   1.8461e-01   2.8059e-01   6.4953e-01   7.9031e-02   1.0167e-01   5.0417e-01   9.3964e-01   9.0844e-01   6.3399e-02   4.9241e-01   5.3730e-01   3.1364e-01
+   9.2317e-01   3.5091e-01   1.1296e-02   7.2197e-01   2.8769e-01   7.9269e-01   8.3057e-01   8.9616e-01   7.5296e-01   1.1462e-01   9.3216e-01   8.5010e-01
+   1.3155e-01  -2.5995e-01   3.4159e-01  -2.1037e-01   2.0330e-01  -9.7087e-02   6.5993e-01   2.3030e-01   2.9842e-01   1.4957e-01   3.1763e-01  -5.0522e-02
+  -2.8420e-01   3.6115e-01   1.2410e-01   1.2095e-01  -7.0396e-02  -3.2416e-02   2.1804e-01   7.1592e-01  -1.3771e-01  -1.9551e-01  -3.2949e-01   1.6411e-01
+  -1.9117e-01   1.7252e-01  -4.8918e-01   1.0789e-01   4.5417e-01  -9.1174e-02   2.6141e-01  -2.2525e-01   4.2898e-01  -3.7410e-01  -8.6204e-02   1.3302e-01
+  -3.0052e-01   4.3873e-01   1.4939e-01  -6.9721e-02   4.2852e-01   2.6471e-01   1.4225e-01  -2.4922e-01  -2.5810e-01   5.2099e-01  -5.2627e-02  -1.1475e-01
+  -5.3832e-01  -6.1616e-02  -1.2211e-01  -2.6086e-01  -4.8419e-01   3.0250e-01   2.8659e-01  -1.9917e-01  -1.3539e-01  -1.9372e-01   3.2133e-01   1.2884e-01
+   3.6900e-01   2.4690e-01  -1.2377e-01   3.8134e-01  -4.6117e-02   5.2934e-01   9.1339e-03   1.4443e-01   1.1697e-01   1.1123e-01   4.0210e-01   3.8876e-01
+
+>> rref(C)
+ans =
+
+   1.0000        0        0        0        0        0  -5.5763  -4.0946  -2.8154   2.7198  -1.4730  -2.0959
+        0   1.0000        0        0        0        0  -6.9244  -4.5585  -4.2527   3.1955  -2.8319  -2.5897
+        0        0   1.0000        0        0        0   3.0096   2.9984   1.1204  -0.6444   0.7776   0.9225
+        0        0        0   1.0000        0        0   8.3193   7.5985   4.9842  -4.4709   2.4087   3.8438
+        0        0        0        0   1.0000        0   2.5387   1.0515   1.5938  -0.5557   0.8582   0.6570
+        0        0        0        0        0   1.0000   2.0660   0.5722   0.9774  -0.1545   1.6287   0.9073
+        0        0        0        0        0        0        0        0        0        0        0        0
+        0        0        0        0        0        0        0        0        0        0        0        0
+        0        0        0        0        0        0        0        0        0        0        0        0
+        0        0        0        0        0        0        0        0        0        0        0        0
+        0        0        0        0        0        0        0        0        0        0        0        0
+        0        0        0        0        0        0        0        0        0        0        0        0
+
+>>
+\end{Verbatim}
+\subsection*{Section 4.1, question 32}
+\begin {enumerate} [label=\alph*]
+\item $r \cdot n = 0$ and $c \cdot l = 0$. Also their dimensions should add up to 2. In this case dimensions should be 1 for all vectors. 
+\item the matrix $\mybf{c} * \mybf{r}^T $ should do the trick because
+\begin{align*}
+A*\mybf{n}=
+\begin{bmatrix}
+c_1r_1 & c_1r_2 \\
+c_2r_1 & c_2r_2 \\
+\end{bmatrix}
+*
+\begin{bmatrix}
+n_1 \\
+n_2 \\
+\end{bmatrix}
+= 0
+\end{align*}
+and also 
+\begin{align*}
+A^T*\mybf{l}=
+\begin{bmatrix}
+c_1r_1 & c_2r_1 \\
+c_1r_2 & c_2r_2 \\
+\end{bmatrix}
+*
+\begin{bmatrix}
+l_1 \\
+l_2 \\
+\end{bmatrix}
+= 0
+\end{align*}
+\end {enumerate}
+\subsection*{Section 4.1, question 33}
+\begin {enumerate} [label=\alph*]
+\item $r \cdot n = 0$ and $c \cdot l = 0$. Also their dimensions should add up to 4. The dimension of ${r_i}$ can't exceed 2 because there are only two vectors. It can't be less than 2 because then the left null space shall have to have more than 2 such vectors. So that's why the dimension of $r_1$ and $r_2$ = 2 and actually the dimension of all four basis formed by the pairs is 2.
+\item One such A matrix that comes to mind is:
+\begin{align*}
+A =
+\begin{bmatrix}
+\mybf{c_1} & \mybf{c_2} & 0 & 0 \\
+\end{bmatrix}
+*
+\begin{bmatrix}
+\mybf{r_1^T}  \\
+\mybf{r_2^T}  \\
+0 \\
+0 \\
+\end{bmatrix}
+\end{align*}
+
+Because
+\begin{align*}
+\mybf{l_i^T}*A =
+\mybf{l_i^T} *
+\begin{bmatrix}
+\mybf{c_1} & \mybf{c_2} & 0 & 0 \\
+\end{bmatrix}
+*
+\begin{bmatrix}
+\mybf{r_1^T}  \\
+\mybf{r_2^T}  \\
+0 \\
+0 \\
+\end{bmatrix}
+= 0
+\end{align*}
+And also - 
+\begin{align*}
+A * \mybf{n_i}=
+\begin{bmatrix}
+\mybf{c_1} & \mybf{c_2} & 0 & 0 \\
+\end{bmatrix}
+*
+\begin{bmatrix}
+\mybf{r_1^T}  \\
+\mybf{r_2^T}  \\
+0 \\
+0 \\
+\end{bmatrix}
+*
+\mybf{l_i}
+= 0
+\end{align*}
+\end {enumerate}
+\subsection*{Section 4.2, question 13}
+We know the following:
+\begin{align*}
+A=
+\begin{bmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+0 & 0 & 0 \\
+\end{bmatrix},
+\mybf{b}=
+\begin{bmatrix}
+1  \\
+2  \\
+3  \\
+4  \\
+\end{bmatrix}\\
+\end{align*}
+We know that $\hat{x} = A(A^TA)^{-1}A^T\mybf{b}=(1,2,3,0)$
+The projection matrix is 4x4 because it takes a vector of size 4 ($\mybf{b}$) and project it onto the columns space that has size 4 as well.
+\begin{align*}
+P=A(A^TA)^{-1}A^T = 
+\begin{bmatrix}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 0\\
+\end{bmatrix}
+\end{align*}
+But of course since this is a quick and recommended question then we can solve it without all of these equations... - we just take $(1,2,3,4)$ and of course the closest vector in the column space is $(1,2,3,0)$. And $P$ should just copy the first 3 and blank the fourth, hence the $P$ that we calculated.
+\subsection*{Section 4.2, question 16}
+We actually want to project $\mybf{b} = (2,1,1)$ onto the column space that is span by the vectors $(1,2,-1)$ and $(1,0,1)$. So what we are looking for is $\hat{x}=(A^TA)^{-1}A^T\mybf{b}$ where 
+\begin{align*}
+A = 
+\begin{bmatrix}
+1 & 1  \\
+2 & 0  \\
+-1 & 1 \\
+\end{bmatrix}
+\end{align*}
+So,
+$\hat{x}=(A^TA)^{-1}A^T\mybf{b} = (0.5, 1.5)$
+\subsection*{Section 4.2, question 17}
+\begin{align*}
+(I-P)^2=I^2-IP-PI+P^2=I-P+P^2-P=I-P
+\end{align*}
+Which proves that $(I-P)^2=I-P$.
+$P^2=P$ implies that if $\mybf{x}$ is in the column space of $A$ then $P\mybf{x}$ always stays in the column space of $A$. That is $P\mybf{x}=\mybf{x}$. If so then for a $\mybf{x}$ that's in the column space of $A$ we have $(I-P)\mybf{x}=I\mybf{x}-P\mybf{x}=\mybf{x}-\mybf{x}=\mybf{0}$. Which means $I-P$ is orthogonal to any such $\mybf{x}$ that's in the column space of $A$. Or in other words $I-P$ is in the column space of $A^T$ or yet in other words $I-P$ is in the left column space of $A$.
+\subsection*{Section 4.2, question 30}
+\begin{align*}
+Pc=
+\begin{bmatrix}
+\frac{9}{25} & \frac{12}{25} \\
+\frac{12}{25} & \frac{16}{25} \\
+\end{bmatrix}
+\end{align*}
+If you multiply $Pc$ with any vector that belongs to the column space of $A$ then you will end up with the same vector. So no wonder that specifically $Pc*A=A$.
+\begin{align*}
+Pr=
+\begin{bmatrix}
+\frac{1}{9} & \frac{2}{9} & \frac{2}{9}\\
+\frac{2}{9} & \frac{4}{9} & \frac{4}{9}\\
+\frac{2}{9} & \frac{4}{9} & \frac{4}{9}\\
+\end{bmatrix}
+\end{align*}
+If you multiply $Pr$ with any vector that belongs to the column space of $A^T$ then you will end up with the same vector. That is $Pr*A^T=A^T$. If we transpose both sides then we get $A*Pr=A$.
+So from the above it's not wonder that multiplying $A$ by $Pc$ from the left yields $A$ and then continuing and multiplying that $A$ result by $Pr$ on the right - leaves us with the original $A$.
+\subsection*{Section 4.2, question 31}
+I would check that $(b-p) \cdot p = 0$.
+\subsection*{Section 4.2, question 34}
+I don't know.
+\subsection*{Section 10.1, question 13 (former(Section 8.1, question 13)}
+\begin{align*}
+A = 
+\begin{bmatrix}
+-1 & 1  & 0  & 0 \\
+-1 & 0  & 1  & 0 \\
+0  & -1 & 1  & 0 \\
+0  & -1 & 0  & 1 \\
+0  & 0  & -1 & 1 \\
+\end{bmatrix},
+C = 
+\begin{bmatrix}
+2 & 0  & 0  & 0 & 0 \\
+0 & 2  & 0  & 0 & 0 \\
+0 & 0  & 3  & 0 & 0 \\
+0 & 0  & 0  & 3 & 0 \\
+0 & 0  & 0  & 0 & 3 \\
+\end{bmatrix},
+\mybf{f} = 
+\begin{bmatrix}
+1  \\
+0 \\
+0 \\
+-1 \\
+\end{bmatrix}
+\end{align*}
+$A^TCA\mybf{x}=\mybf{f}$
+This $A^TCA$ matrix has a rank 3 so it's not invertible, so solving by inversion doesn't work.
+\begin{align*}
+A^T*C*A=
+\begin{bmatrix}
+4 & -2 & -2 & 0 \\
+-2 & 8 & -3 & -3 \\
+-2 & -3 & 8 & -3 \\
+0 & -3 & -3 & 6 \\
+\end{bmatrix}
+\end{align*}
+so using ocatv linsolve I solve this:
+\begin{align*}
+\begin{bmatrix}
+4 & -2 & -2  \\
+-2 & 8 & -3 \\
+-2 & -3 & 8 \\
+0 & -3 & -3 \\
+\end{bmatrix} 
+* 
+\begin{bmatrix}
+x_1  \\
+x_2 \\
+x_3 \\
+\end{bmatrix} 
+=
+\begin{bmatrix}
+f_1  \\
+f_2 \\
+f_3 \\
+f_4
+\end{bmatrix} 
+\end{align*}
+After using octave I get $\mybf{x} = (\frac{5}{12}, \frac{2}{12}, \frac{2}{12}, 0)$ as ONE of the possible solutions.
+And then $\mybf{y}=-A*\mybf{x} = (\frac{3}{12}, \frac{-7}{12}, \frac{0}{12}, \frac{2}{12}, \frac{2}{12})$
+\subsection*{Section 10.1, question 17 (former(Section 8.1, question 17)}
+\begin{enumerate}[label=\alph*]
+\item 8, because with 9 nodes, a tree that spans is 8 and beyond that we get loops.
+\item sum of elements in $\mybf{f}$ is 0.
+\item $(A^TA)_{i,i}$ is the number of edges entering node $i$.
+\end{enumerate}
+\end{document}

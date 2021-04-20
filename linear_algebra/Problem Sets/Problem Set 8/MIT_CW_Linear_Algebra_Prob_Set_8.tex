@@ -1,0 +1,481 @@
+\documentclass[a4paper,11pt]{article}
+
+%Headers
+\usepackage[dvips]{graphicx}    %package that does pdfs
+\usepackage{color}              %this needs to be here also
+\usepackage{ulem}
+\usepackage{amsmath}
+\usepackage{pgfplots}
+\usepackage{adjustbox}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{fancyvrb}
+\usepackage{upquote}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+             \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+\newcommand{\mybf}[1]{\boldsymbol{#1}}
+\newcommand{\norm}[1]{\lvert\lvert #1 \rvert\rvert}
+\newcommand{\autour}[1]{\tikz[baseline=(X.base)]\node [draw=black,fill=white!40,semithick,rectangle,inner sep=2pt, rounded corners=3pt] (X) {#1};}
+
+\title{%
+	Problem Set 8\\
+	\large MIT CW Linear Algebra (18.06)
+}
+\author{Aviel Livay}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\subsection*{Section 6.3, question 14}
+\begin{enumerate}
+\item
+Using octave I managed to get a hold of the eigenvalues and eigenvectors here.
+$\lambda_1 = \frac{1}{2}+c*i$ and
+\begin{align*}
+\mybf{x_1} = 
+\begin{bmatrix}
+\frac{\sqrt{2}}{2} \\
+\frac{\sqrt{2}}{2}*i \\
+0 \\
+\end{bmatrix}
+\end{align*}
+$\lambda_2 = \frac{1}{2}-c*i$ and
+\begin{align*}
+\mybf{x_2} = 
+\begin{bmatrix}
+\frac{\sqrt{2}}{2} \\
+\frac{-\sqrt{2}}{2}*i \\
+0 \\
+\end{bmatrix}
+\end{align*}
+$\lambda_3 = -1$ and
+\begin{align*}
+\mybf{x_3} = 
+\begin{bmatrix}
+0 \\
+0 \\
+1 \\
+\end{bmatrix}
+\end{align*}
+and so 
+\begin{align*}
+\mybf{u(t)}= 
+c_1*
+\begin{bmatrix}
+\frac{\sqrt{2}}{2} \\
+\frac{\sqrt{2}}{2}*i \\
+0 \\
+\end{bmatrix}
+*
+e^{(\frac{1}{2}+c*i)t}
++
+c_2*
+\begin{bmatrix}
+\frac{\sqrt{2}}{2} \\
+\frac{-\sqrt{2}}{2}*i \\
+0 \\
+\end{bmatrix}
+*
+e^{(\frac{1}{2}-c*i)t}
++
+c_3*
+\begin{bmatrix}
+0 \\
+0 \\
+1 \\
+\end{bmatrix}
+*
+e^{-t}
+\end{align*}
+to make $mybf{u'(t)}=0$ we shall have to have
+$c_1*\frac{1}{2}+c*i + c_2*\frac{1}{2}-c*i - c_3 = 0$
+which is possible if $c_1=c_2$ or if $c_3=0$.
+\item 
+\begin{align*}
+Q=e^{At}=I+(At)+\frac{1}{2}(At)^2+\frac{1}{6}(At)^3+\dots = \\ 
+I+(-A^Tt)+\frac{1}{2}(-A^Tt)^2+\frac{1}{6}(-A^Tt)^3+\dots = \\
+e^{-A^Tt}
+Q^T Q = 
+\end{align*}
+\end{enumerate}
+\subsection*{Section 6.3, question 22}
+\begin{align*}
+e^{At}=I+(At)+\frac{1}{2}(At)^2+\frac{1}{6}(At)^3+\dots = \\
+I+(At)+\frac{1}{2}At^2+\frac{1}{6}At^3+\dots = \\
+I+ A (t + \frac{1}{2}t^2+\frac{1}{6}t^3+\dots = \\
+I+ A (-1 + 1 + t + \frac{1}{2}t^2+\frac{1}{6}t^3+\dots = \\
+I+ A (-1 + e^t) = \\
+\end{align*}
+\subsection*{Section 6.3, question 24}
+To find the lambdas we want:
+\begin{align*}
+\text{det} 
+\begin{bmatrix}
+1-\lambda & 1 \\
+0 & 3-\lambda \\
+\end{bmatrix} = 0 \\
+(1-\lambda)(3-\lambda)=0
+\lambda_1 = 1
+\lambda_2 = 3
+\end{align*}
+and then
+\begin{align*}
+\begin{bmatrix}
+0 & 1 \\
+0 & 3 \\
+\end{bmatrix}
+\mybf{x_1} = 0
+\end{align*}
+So for $\lambda_1=1$ we have $\mybf{x_1}=(1, 0)$.
+And then
+\begin{align*}
+\begin{bmatrix}
+-2 & 1 \\
+0 & 0 \\
+\end{bmatrix}
+\mybf{x_2} = 0
+\end{align*}
+So for $\lambda_2=3$ we have $\mybf{x_2}=(1, 2)$.
+So 
+\begin{align*}
+X = 
+\begin{bmatrix}
+1 & 1 \\
+0 & 2 \\
+\end{bmatrix}
+\end{align*}
+and 
+\begin{align*}
+X^{-1} = 
+\begin{bmatrix}
+1 & -0.5 \\
+0 & 0.5 \\
+\end{bmatrix}
+\end{align*}
+and of course 
+\begin{align*}
+\Lambda = 
+\begin{bmatrix}
+1 & 0 \\
+0 & 3 \\
+\end{bmatrix}
+\end{align*}
+And let's calculate
+\begin{align*}
+e^{At}=X e^{\Lambda*t} X^{-1}= 
+\begin{bmatrix}
+1 & 1 \\
+0 & 2 \\
+\end{bmatrix}
+*
+\begin{bmatrix}
+e^t & 0 \\
+0 & e^{3t} \\
+\end{bmatrix}
+*
+\begin{bmatrix}
+1 & -0.5 \\
+0 & 0.5 \\
+\end{bmatrix}= 
+\begin{bmatrix}
+e^t & \frac{e^{3t}-e^t}{2} \\
+0 & e^{3t} \\
+\end{bmatrix}
+\end{align*}
+at $t=0$ we get
+\begin{align*}
+\begin{bmatrix}
+1 & 0 \\
+0 & 1 \\
+\end{bmatrix}
+\end{align*}
+\subsection*{Section 6.3, question 28}
+\begin{align*}
+U = 
+\begin{bmatrix}
+Y_{n+1} \\
+Z_{n+1} \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 0 \\
+-\Delta t & 1 \\
+\end{bmatrix}
+\begin{bmatrix}
+1 & \Delta t \\
+0 & 1 \\
+\end{bmatrix}
+\begin{bmatrix}
+Y_n \\
+Z_n \\
+\end{bmatrix} = \\
+\begin{bmatrix}
+1 & \Delta t \\
+-\Delta t & -{(\Delta t)}^2+1 \\
+\end{bmatrix}  
+\begin{bmatrix}
+Y_n \\
+Z_n \\
+\end{bmatrix} 
+\end{align*}
+\begin{align*}
+\text{det}
+\begin{bmatrix}
+1 & 1 \\
+-\Delta t & -{(\Delta t)}^2+1 \\
+\end{bmatrix}  =
+-{(\Delta t)}^2+1+{(\Delta t)}^2=1
+\end{align*}
+for $\Delta t=1$ we get
+\begin{align*}
+A = 
+\begin{bmatrix}
+1 & 1 \\
+-1 & 0 \\
+\end{bmatrix}  =
+-{(\Delta t)}^2+1+{(\Delta t)}^2=1
+\end{align*}
+Sum of $\lambda$'s is 1 and multiplication of $\lambda$'s is 1.
+$\lambda_1 = \frac{1+\sqrt{3}i}{2}$ and $\lambda_2 = \frac{1-\sqrt{3}i}{2}$
+\subsection*{Section 6.3, question 29}
+For $\Delta t = \sqrt{2}$ we get
+\begin{align*}
+A = 
+\begin{bmatrix}
+1 & 1 \\
+-\Delta t & -{(\Delta t)}^2+1 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & \sqrt{2} \\
+\sqrt{2} & -1 \\
+\end{bmatrix}
+\end{align*} 
+Sum of $\lambda$'s is 0 and multiplication of them is 1, so $\lambda_1=i$ and $\lambda_2=-i$. \\
+$\mybf{x_1}=(\frac{\sqrt{2}}{2}, -\frac{\sqrt{2}}{2})$ and $\mybf{x_2}=(-\frac{\sqrt{2}}{2}, \frac{\sqrt{2}}{2})$
+For $\Delta t = 2$ we get
+\begin{align*}
+A = 
+\begin{bmatrix}
+1 & 1 \\
+-\Delta t & -{(\Delta t)}^2+1 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 1 \\
+-2 & -3 \\
+\end{bmatrix}
+\end{align*} 
+Sum of $\lambda$'s is -2 and multiplication of them is 1, so $\lambda_1=-1$ and $\lambda_2=-1$.
+$\mybf{x_1}=(\frac{\sqrt{2}}{2}, -\frac{\sqrt{2}}{2})$ and $\mybf{x_2}=(-\frac{\sqrt{2}}{2}, \frac{\sqrt{2}}{2})$
+\begin{align*}
+\begin{bmatrix}
+1 & \sqrt{2} \\
+\sqrt{2} & -1 \\
+\end{bmatrix}^4=
+\begin{bmatrix}
+1 & 0 \\
+0 & 1 \\
+\end{bmatrix}
+\end{align*}
+\begin{align*}
+\begin{bmatrix}
+1 & 2 \\
+-2 & -3 \\
+\end{bmatrix}^4=
+\begin{bmatrix}
+-7 & -8 \\
+8 & 9 \\
+\end{bmatrix}
+\end{align*}
+\subsection*{Section 6.4, question 9 (former Section 6.4, question 7)}
+To find the eigenvalues of the matrix 
+\begin{align*}
+\begin{bmatrix}
+1 & b \\
+b & 1 \\
+\end{bmatrix}
+\end{align*}
+we have to solve
+\begin{align*}
+\text{det}
+\begin{bmatrix}
+1-\lambda & b \\
+b & 1-\lambda \\
+\end{bmatrix} = 0
+\end{align*}
+\begin{align*}
+&(1-\lambda)^2=b^2 \\
+&\lambda_1 = 1 + b \\
+&\lambda_2 = 1 - b\\
+\end{align*}
+For $\lambda_2$ to be negative... b has to meet $b>1$.
+So for example we have the matrix where $b=2>1$
+\begin{align*}
+\begin{bmatrix}
+1 & 2 \\
+2 & 1 \\
+\end{bmatrix}
+\end{align*}
+And when we want to do some row action in order  to find the pivots we get - 
+\begin{align*}
+\begin{bmatrix}
+1 & b \\
+0 & 1-b^2 \\
+\end{bmatrix}
+\end{align*}
+Since $b>1$ then we know the second pivot is negative.
+if $b>1$ then for sure $\lambda_1 = 1 + b > 2$ and cannot be negative. 
+\subsection*{Section 6.4, question 12 (former Section 6.4, question 10)}
+The problem with this proof is that it assumes that both the nominator and the denominator are real. However if $\mybf{x}^T\mybf{x}$ is real at the denominator then $\mybf{x}^T{A}\mybf{x}=\mybf{x}^T{\lambda}\mybf{x}=\lambda{\mybf{x}^T}\mybf{x}$ and since $\lambda$ can be complex then even if ${\mybf{x}^T}\mybf{x}$ is real, still the nominator is going to be complex.
+\subsection*{Section 6.4, question 25 (former Section 6.4, question 23)}
+A is invertible because all of its columns are linearly independent.\\
+A is orthogonal because its columns are orthogonal\\
+A is a projection matrix because two of its eigenvectors are 1 which means there exist $x$ such that $Ax=x$. Which means $x$ is in the column space and thus applying the projection matrix on this vector doesn't change it and it stays where it is.\\
+A is of course also a permutation matrix.\\
+A is diagonalizable because it's symmetric. \\
+\begin{align*}
+\begin{bmatrix}
+\frac{\sqrt{2}}{2} & 0 & -\frac{\sqrt{2}}{2} \\
+0 & 0 & -1 \\
+-\frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2} & 0\\
+\end{bmatrix}^{-1}*
+\begin{bmatrix}
+-1& 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+\end{bmatrix}*
+\begin{bmatrix}
+\frac{\sqrt{2}}{2} & 0 & -\frac{\sqrt{2}}{2} \\
+0 & 0 & -1 \\
+-\frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2} & 0\\
+\end{bmatrix}
+\end{align*}
+A is Markov because the sum of all the entries in each of the columns is 1\\
+A cannot undergo LU decomposition because the inversion process involves rows swapping.\\
+A is already Q so QR decomposition should actually be Q=A and R=I.\\
+A is invertible so it can go $X\Lambda{X^{-1}}$ decomposition.\\
+A is a real symmetric matrix so it can go through $X\Lambda{X^{-1}}$
+B is not invertible since the lines are identical 
+B is not orthogonal
+B is a projection matrix because one of its eigenvalues is 1.
+B is not a permutation matrix
+B is symmetrical but it can't be diagonalized because its singular.
+B has LU decomposition - 2 row operations to create upper triangular.\\
+B has QR decomposition as follows:
+\begin{align*}
+\frac{1}{3}
+\begin{bmatrix}
+1 & 1 & 1 \\
+1 & 1 & 1 \\
+1 & 1 & 1 \\
+\end{bmatrix} = 
+\frac{1}{3}
+\begin{bmatrix}
+1 & 0 & 0 \\
+1 & 0 & 0 \\
+1 & 0 & 0 \\
+\end{bmatrix} *
+\begin{bmatrix}
+1 & 1 & 1 \\
+0 & 0 & 0 \\
+0 & 0 & 0 \\
+\end{bmatrix}
+\end{align*}
+B is not invertible so it can not have $X\Lambda{X^{-1}}$ decomposition.\\
+and as result cannot have this composition $Q\Lambda{Q^{-1}}$
+\subsection*{Section 6.4, question 25 (former Section 6.4, question 23)}
+eigenvalues are 1 and 3.
+\subsection*{Section 6.4, question 32 (former Section 6.4, question 30)}
+\begin{align*}
+(Q{\Lambda}Q^T)_{1,1} = \lambda_1*q_1[0]^2+\lambda_2*q_2[0]+\dots+\lambda_n*q_n[0] \leq \\
+{\lambda}_{max}q_1[0]^2+{\lambda}_{max}q_2[0]+\dots+{\lambda}_{max}q_n[0] = \\
+{\lambda}_{max}(q_1[0]^2+q_2[0]^2+\dots+q_3[0]^2 = \\
+{\lambda}_{max}q_1^T{q_1} = \\
+{\lambda}_{max}
+\end{align*}
+\subsection*{Section 10.3, question 9 (former Section 8.3, question 9)}
+To multiply a Markov matrix with a Markov matrix, each column of the result is a multiplication of a Matrix by a column whose sum of entries is 1. So if that is the case result column by definition has a sum of 1 for all the entries. If we keep doing this, we get a matrix where the sum of entries in each of the columns is 1. So this is true for every $A$ and $B$ Markov matrices... $AB$ is also Markov. Specifically this is true for $A^2$.
+\subsection*{Section 10.3, question 12 (former Section 8.3, question 12)}
+The sum of each of the columns of $B=A-I$ is 0. That means that there's a vector $\mybf{x}$ such that $B{I}=0$ which means that $B$ is singular and therefore it must have at least one $\lambda=0$.
+I understand that $\mybf{x_1}$ and $\mybf{x_2}$ are eigenvectors. So 
+\begin{align*}
+e^{\lambda_1{t}}*\mybf{x_1}+e^{\lambda_2{t}}\mybf{x_2}=\mybf{x_1}+e^{-0.5}\mybf{x_2}
+\end{align*}
+At the limit this goes to $\mybf{x_1}$.
+\subsection*{Section 10.3, question 16 (former Section 8.3, question 13)}
+If $\lambda_3=0$ as given. and this is a Markov matrix which means there's $\lambda_1=1$ and trace is 1.2 then the last $\lambda_2=0.2$
+\begin{align*}
+\mybf{u(k)} = 
+{c_1}*1^k
+\begin{bmatrix}
+3 \\
+3 \\
+4 \\
+\end{bmatrix}
++
+{c_2}*{0.2}^k
+\begin{bmatrix}
+-1 \\
+1 \\
+0 \\
+\end{bmatrix}
++
+{c_3}*0^k
+\begin{bmatrix}
+-1 \\
+-1 \\
+2 \\
+\end{bmatrix}
+\end{align*}
+For the case of $\mybf{u_0}=(1,0,0)$ we get
+\begin{align*}
+\mybf{u(k)} = 
+0.1
+\begin{bmatrix}
+3 \\
+3 \\
+4 \\
+\end{bmatrix}
+-0.5*{0.2}^k
+\begin{bmatrix}
+-1 \\
+1 \\
+0 \\
+\end{bmatrix}
+-
+0.2*{0}^k
+\begin{bmatrix}
+-1 \\
+-1 \\
+2 \\
+\end{bmatrix}
+\end{align*}
+For the case of $\mybf{u_0}=(100,0,0)$ we get
+\begin{align*}
+\mybf{u(k)} = 
+10
+\begin{bmatrix}
+3 \\
+3 \\
+4 \\
+\end{bmatrix}
+-50*{0.2}^k
+\begin{bmatrix}
+-1 \\
+1 \\
+0 \\
+\end{bmatrix}
+-20*{0}^k
+\begin{bmatrix}
+-1 \\
+-1 \\
+2 \\
+\end{bmatrix}
+\end{align*}
+The limit is $(0.3, 0.3, 0.4)$ and $(30,30,40)$ correspondingly.
+\end{document}
